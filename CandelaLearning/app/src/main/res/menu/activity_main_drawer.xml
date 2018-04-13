@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home_layout"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_products_layout"
+            android:icon="@drawable/ic_store_black_24dp"
+            android:title="Products" />
+        <item
+            android:id="@+id/nav_mcq"
+            android:icon="@drawable/ic_format_list_numbered_black_24dp"
+            android:title="MCQ" />
+        <item
+            android:id="@+id/nav_papers_layout"
+            android:icon="@drawable/ic_attach_file_black_24dp"
+            android:title="Papers" />
+        <item
+            android:id="@+id/nav_aboutus_layout"
+            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:title="About Us" />
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
+            android:title="Quit" />
+    </group>
+</menu>
