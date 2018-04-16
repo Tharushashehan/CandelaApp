@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
 
     //Here is the next button tat needs to be changed visibility
     //START
-    static ImageButton next_button;
+    static Button next_button;
     //END
     Integer FirstArrayIndex =0;
     DataBaseHelper myDb;
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
 
         //Here is the next button tat needs to be changed visibility
         //START
-        next_button = (ImageButton)findViewById(R.id.next_button);
+        next_button = (Button) findViewById(R.id.next_button);
         //END
 
         //Here we add necessary paper data to the system
@@ -534,7 +534,7 @@ public class MainActivity extends AppCompatActivity
     public static TextView getTextViewTimer(){
         return MainActivity.textViewTimer;
     }
-    public static ImageButton getnext_button(){
+    public static Button getnext_button(){
         return MainActivity.next_button;
     }
 }

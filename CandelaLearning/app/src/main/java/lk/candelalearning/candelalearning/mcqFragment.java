@@ -225,7 +225,7 @@ public class mcqFragment extends Fragment{
                     if (Ativityposition == 3){
                         TheTimer = new CountDownTimer(30000, 1000) {
                             public void onTick(long millisUntilFinished) {
-                                MainActivity.getTextViewTimer().setTextColor(Color.RED);
+                                //MainActivity.getTextViewTimer().setTextColor(Color.RED);
                                 MainActivity.getTextViewTimer().setText("Seconds remaining: " + millisUntilFinished / 1000);
                             }
                             public void onFinish() {

@@ -37,20 +37,20 @@
 
     </FrameLayout>
 
-        <ImageButton
+        <Button
             android:id="@+id/next_button"
-            android:layout_width="60dip"
-            android:layout_height="60dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="30dp"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/next2"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:text="NEXT"
+            android:textColor="#000000"
             android:visibility="gone"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
+            android:textSize="12sp"
+            android:background="@drawable/back"/>
 
         <TextView
             android:id="@+id/textViewTimer"
@@ -60,22 +60,26 @@
             android:layout_alignParentRight="true"
             android:text="Timer Text"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="24sp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
+            android:textSize="12sp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginRight="30dp"
             android:textStyle="bold"
             android:visibility="gone"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#3D2B1F"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:indeterminateTint="#FFFFFF"
-
-            android:progressTint="#ffffff"
-            android:visibility="gone" />
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressDrawable="@drawable/custom_progressbar"
+            android:progressTint="@color/colorPrimaryDark"
+            android:visibility="gone"
+            android:background="@drawable/back"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"/>
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
