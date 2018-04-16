@@ -45,12 +45,12 @@
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="30dp"
             android:adjustViewBounds="true"
-            style="@style/Widget.AppCompat.Button.Colored"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:text="NEXT"
             android:textColor="#000000"
             android:visibility="gone"
             android:textSize="12sp"
-            android:background="@drawable/back"/>
+            />
 
         <TextView
             android:id="@+id/textViewTimer"
@@ -58,11 +58,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:text="Timer Text"
+            android:text="Timer"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="12sp"
-            android:layout_marginBottom="40dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginRight="200dp"
             android:textStyle="bold"
             android:visibility="gone"
             android:textColor="#3D2B1F"/>
