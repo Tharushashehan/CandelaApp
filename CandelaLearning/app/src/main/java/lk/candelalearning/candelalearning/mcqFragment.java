@@ -12,6 +12,8 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,7 @@ import android.widget.TextView;
 import android.graphics.Color;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tharusha Shehan on 4/7/2018.
@@ -47,6 +50,10 @@ public class mcqFragment extends Fragment{
     CountDownTimer TheTimer;
     FloatingActionButton fab_select;
     int position;
+    RecyclerView answer_recycle_view;
+    RecyclerView.Adapter mAdapter;
+    RecyclerView.LayoutManager mLayoutManager;
+    private List<Person> persons;
     //Context context = getActivity();
     //MainActivity MA = new MainActivity();
 
@@ -58,6 +65,34 @@ public class mcqFragment extends Fragment{
         tv = (TextView) myView.findViewById(R.id.textView2);
         answer_list_view = (ListView) myView.findViewById(R.id.answer_list_view);
         fab_select = (FloatingActionButton) myView.findViewById(R.id.fab_select);
+        //Here starts the recycle view methods
+        //START
+        answer_recycle_view = (RecyclerView) myView.findViewById(R.id.answer_recycle_view);
+        answer_recycle_view.setHasFixedSize(true);
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(MainActivity.getAppContext());
+        answer_recycle_view.setLayoutManager(mLayoutManager);
+
+    /*    // specify an adapter (see also next example)
+        mAdapter = new MyAdapter(myDataset);
+        answer_recycle_view.setAdapter(mAdapter);
+
+
+
+        // This method creates an ArrayList that has three Person objects
+// Checkout the project associated with this tutorial on Github if
+// you want to use the same images.
+    private void initializeData(){
+        persons = new ArrayList<>();
+        persons.add(new Person("Emma Wilson", "23 years old", R.drawable.candelalogo));
+        persons.add(new Person("Lavery Maiss", "25 years old", R.drawable.next));
+        persons.add(new Person("Lillie Watts", "35 years old", R.drawable.next2));
+    }
+
+    RVAdapter adapter = new RVAdapter(persons);
+    answer_recycle_view.setAdapter(adapter);*/
+
+    //END
         //MainActivity.getnext_button().setVisibility(View.GONE);
 
 
@@ -240,6 +275,8 @@ public class mcqFragment extends Fragment{
                                 QuestionNumber = 11;
                             }
                         }.start();
+                        //MainActivity.getnext_button().setVisibility(View.GONE);
+                        fab_select.setVisibility(View.VISIBLE);
                     }
                     MainActivity.getnext_button().setVisibility(View.VISIBLE);
                     //ShowData SD = new ShowData();
