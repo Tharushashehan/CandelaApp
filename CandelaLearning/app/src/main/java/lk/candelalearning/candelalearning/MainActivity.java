@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     static ProgressBar progressBar;
     static TextView textViewTimer;
 
+
     //TextView textView2;
 
     //initializing WebView
@@ -410,20 +411,19 @@ public class MainActivity extends AppCompatActivity
 
             String[] GradeArray = new String[TmpArryLst.size()];
             GradeArray = TmpArryLst.toArray(GradeArray);
-            mcqFragment MCQFragment = new mcqFragment();
+            //mcqFragment MCQFragment = new mcqFragment();
+            GradeFragment GradeFrag = new GradeFragment();
             Bundle arguments = new Bundle();
             arguments.putInt("VALUE1", VALUE1);
             arguments.putString("VALUE2", QuestionData);
             arguments.putStringArray("VALUE3", GradeArray); //bundle.getStringArray("VALUE3");
-            MCQFragment.setArguments(arguments);
+            GradeFrag.setArguments(arguments);
 
             mwebView.loadUrl("about:blank");
 
-            progressBar.setVisibility(View.VISIBLE);
-            textViewTimer.setVisibility(View.VISIBLE);
-            //fragmentManager.beginTransaction().replace(R.id.content_frame ,new mcqFragment(),"TAG_FRAGMENT").commit();
-            //fragmentManager.beginTransaction().replace(R.id.content_frame , MCQFragment, "TAG_FRAGMENT").commit();
-            fragmentManager.beginTransaction().replace(R.id.content_frame , MCQFragment, "TAG_FRAGMENT").commit();
+            progressBar.setVisibility(View.GONE);
+            textViewTimer.setVisibility(View.GONE);
+            fragmentManager.beginTransaction().replace(R.id.content_frame , GradeFrag, "TAG_FRAGMENT").commit();
         } else if (id == R.id.nav_papers_layout) {
             fab.setVisibility(View.VISIBLE);
             EmptyFragment empFra = new EmptyFragment();

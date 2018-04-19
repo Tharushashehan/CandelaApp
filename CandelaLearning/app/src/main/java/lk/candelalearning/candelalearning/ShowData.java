@@ -58,7 +58,7 @@ public class ShowData {
         Cursor AnswerCursor = myDb.getAnswerDataForQuestionId(Question_Id);
         ArrayList<String> TmpArryLst = new ArrayList<String>();
         int CorrectAnswerPositionTemp =0 , CorrectAnswerPosition = 0;
-
+        char  numb = 'a';
         try{
             while (AnswerCursor.moveToNext()) {
                 index = AnswerCursor.getColumnIndexOrThrow("Answer_Id");
@@ -73,7 +73,8 @@ public class ShowData {
                     CorrectAnswerPosition = CorrectAnswerPositionTemp;
                 }
                 CorrectAnswerPositionTemp++;
-                TmpArryLst.add(Answer);
+                TmpArryLst.add(numb + ") " + Answer);
+                numb++;
             }
         }finally {
             AnswerCursor.close();
