@@ -28,6 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.graphics.Color;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +54,10 @@ public class mcqFragment extends Fragment{
     RecyclerView answer_recycle_view;
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
-    private List<Person> persons;
+    //private List<Person> persons;
     //Context context = getActivity();
     //MainActivity MA = new MainActivity();
+    private List<Person> persons;
 
 
     @Nullable
@@ -67,33 +69,17 @@ public class mcqFragment extends Fragment{
         fab_select = (FloatingActionButton) myView.findViewById(R.id.fab_select);
         //Here starts the recycle view methods
         //START
+
         answer_recycle_view = (RecyclerView) myView.findViewById(R.id.answer_recycle_view);
         answer_recycle_view.setHasFixedSize(true);
         // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(MainActivity.getAppContext());
+        mLayoutManager = new LinearLayoutManager(myView.getContext());
         answer_recycle_view.setLayoutManager(mLayoutManager);
 
-    /*    // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(myDataset);
-        answer_recycle_view.setAdapter(mAdapter);
+        //mcqFragment MF = new mcqFragment();
+        //MF.initializeData();
 
 
-
-        // This method creates an ArrayList that has three Person objects
-// Checkout the project associated with this tutorial on Github if
-// you want to use the same images.
-    private void initializeData(){
-        persons = new ArrayList<>();
-        persons.add(new Person("Emma Wilson", "23 years old", R.drawable.candelalogo));
-        persons.add(new Person("Lavery Maiss", "25 years old", R.drawable.next));
-        persons.add(new Person("Lillie Watts", "35 years old", R.drawable.next2));
-    }
-
-    RVAdapter adapter = new RVAdapter(persons);
-    answer_recycle_view.setAdapter(adapter);*/
-
-    //END
-        //MainActivity.getnext_button().setVisibility(View.GONE);
 
 
         try{
@@ -199,6 +185,123 @@ public class mcqFragment extends Fragment{
             }
         });
 
+
+        answer_recycle_view.addOnItemTouchListener(
+                new RecyclerItemClickListener(myView.getContext(), answer_recycle_view ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+
+                        if (Ativityposition == 3 & QuestionNumber <= 10){
+                            answer_list_view.setVisibility(View.VISIBLE);
+                            answer_recycle_view.setVisibility(View.GONE);
+                            if (Ativityposition == 3){
+                                TheTimer = new CountDownTimer(30000, 1000) {
+                                    public void onTick(long millisUntilFinished) {
+                                        //MainActivity.getTextViewTimer().setTextColor(Color.RED);
+                                        MainActivity.getTextViewTimer().setText("Seconds: " + millisUntilFinished / 1000);
+                                    }
+                                    public void onFinish() {
+                                        MainActivity.getTextViewTimer().setText("Done");
+                                        QuestionNumber = 11;
+                                    }
+                                }.start();
+                                //MainActivity.getnext_button().setVisibility(View.GONE);
+                                fab_select.setVisibility(View.VISIBLE);
+                            }
+                            MainActivity.getnext_button().setVisibility(View.VISIBLE);
+                            //ShowData SD = new ShowData();
+                            //adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, SD.SetMCQStringArrayData( new DataBaseHelper(MainActivity.getAppContext()), Ativityposition));
+                            //Ativityposition++;
+                            //answer_list_view.setAdapter(adapter);
+                            ShowData SD = new ShowData();
+                            mcqFragment fragment =  SD.SetMCQFragmentData(new DataBaseHelper(MainActivity.getAppContext()), Ativityposition);
+
+                            try{
+                                int value1=0;
+                                String value2=" ";
+                                String[] StringArray = {};
+
+                                Bundle bundle = fragment.getArguments();
+                                if (bundle != null) {
+                                    if (LastCorrectness==position){
+                                        Marks++;
+                                    }
+                                    value1 = bundle.getInt("VALUE1", -1);
+                                    value2 = bundle.getString("VALUE2", "h");
+                                    StringArray = bundle.getStringArray("VALUE3");
+                                    LastCorrectness = bundle.getInt("VALUE4", -1);
+                                    tv.setText("Q: " + QuestionNumber + ") " + value2);
+                                    //ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.second_layout, StringArray);
+                                    adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, StringArray);
+                                    MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
+                                    Ativityposition++;
+                                    QuestionNumber++;
+                                    answer_list_view.setAdapter(adapter);
+
+
+                                }else{
+                                    tv.setText("Click next to start");
+                                }
+                            }catch (Exception ex){
+                                tv.setText("Click next to start");
+                            }
+                        }else if (QuestionNumber > 3){
+                            answer_list_view.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                            answer_list_view.setSelector(android.R.color.holo_green_dark);
+                            answer_list_view.setSelector(android.R.color.background_dark);
+                        }
+                        else if (QuestionNumber > 10){
+
+                            int index, Subject_Id;
+                            String Subject, Phone = "0";
+                            MainActivity.getnext_button().setVisibility(View.GONE);
+
+                            tv.setText("Your result is");
+
+                            myDb = new DataBaseHelper(MainActivity.getAppContext());
+                            Cursor GradeCursor = myDb.getUserPhoneNo();
+
+
+                            try{
+                                while (GradeCursor.moveToNext()) {
+                                    index = GradeCursor.getColumnIndexOrThrow("Phone");
+                                    Phone = GradeCursor.getString(index);
+                                }
+                            }finally {
+                                GradeCursor.close();
+                            }
+
+                            //SMS send
+                            //START
+                    /*startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("sms:"
+                            + "094710793080")));
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + phoneNumber));
+                    intent.putExtra("sms_body", message);
+                    startActivity(intent);*/
+
+                            Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "sms:" + Phone ) );
+                            intent.putExtra( "sms_body", "Your result is" + Integer.toString(Marks) + " out of 10" );
+                            startActivity( intent );
+
+                            //END
+
+
+
+                            //String[] ResultArray = new String[TmpArryLst.size()];
+                            //ResultArray = TmpArryLst.toArray(ResultArray);
+                            String[] ResultArray = {Integer.toString(Marks) + " out of 10"};
+                            adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, ResultArray);
+                            answer_list_view.setAdapter(adapter);
+                        }
+
+
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        Toast.makeText(myView.getContext(), "Dont Long Press", Toast.LENGTH_LONG).show();
+                    }
+                })
+        );
         answer_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -239,7 +342,11 @@ public class mcqFragment extends Fragment{
                     String Year;
                     myDb = new DataBaseHelper(MainActivity.getAppContext());
                     Cursor GradeCursor = myDb.getPaperYear();
-                    ArrayList<String> TmpArryLst = new ArrayList<String>();
+                    //ArrayList<String> TmpArryLst = new ArrayList<String>();
+                    persons = new ArrayList<>();
+
+                    answer_recycle_view.setVisibility(View.VISIBLE);
+                    answer_list_view.setVisibility(View.GONE);
 
                     try{
                         while (GradeCursor.moveToNext()) {
@@ -249,21 +356,20 @@ public class mcqFragment extends Fragment{
                             index = GradeCursor.getColumnIndexOrThrow("Year");
                             Year = GradeCursor.getString(index);
 
-                            TmpArryLst.add("Paper of year "+Year);
+                            persons.add(new Person("Paper of year "+Year, Year_Id));
                         }
                     }finally {
                         GradeCursor.close();
                     }
-
-                    String[] GradeArray = new String[TmpArryLst.size()];
-                    GradeArray = TmpArryLst.toArray(GradeArray);
-                    adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, GradeArray);
                     Ativityposition = 3;
                     tv.setText("Please select a paper from of a year");
-                    answer_list_view.setAdapter(adapter);
+                    RVAdapter Recycleadapter = new RVAdapter(persons);
+                    answer_recycle_view.setAdapter(Recycleadapter);
 
                /* }else  if (Ativityposition > 2 & QuestionNumber <= 10){*/
                 }else  if (Ativityposition == 3 & QuestionNumber <= 10){
+                    answer_list_view.setVisibility(View.VISIBLE);
+                    answer_recycle_view.setVisibility(View.GONE);
                     if (Ativityposition == 3){
                         TheTimer = new CountDownTimer(30000, 1000) {
                             public void onTick(long millisUntilFinished) {
