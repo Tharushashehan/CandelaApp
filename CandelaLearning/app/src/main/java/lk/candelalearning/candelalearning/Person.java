@@ -4,7 +4,7 @@ package lk.candelalearning.candelalearning;
  * Created by tharu on 4/17/2018.
  */
 
-class Person {
+class Person implements java.io.Serializable {
     String name;
     //String age;
     //int photoId;
