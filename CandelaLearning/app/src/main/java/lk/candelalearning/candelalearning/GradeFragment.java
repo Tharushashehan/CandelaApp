@@ -90,7 +90,7 @@ public class GradeFragment extends Fragment {
                     arguments.putStringArray("VALUE3", SubjectArray);
                     Frag.setArguments(arguments);
                     FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "TAG_FRAGMENT").commit();
+                    fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "SubjectFragment").addToBackStack("SubjectFragment").commit();
                 }
             });
             return  myView;

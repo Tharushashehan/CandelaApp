@@ -22,7 +22,7 @@ import java.util.List;
  * Created by tharu on 4/19/2018.
  */
 
-public class PaperYearFragment extends Fragment {
+public class PaperYearFragment extends Fragment implements OnBackPressedListener {
         View myView;
         ListView answer_list_view;
         DataBaseHelper myDb;
@@ -34,6 +34,45 @@ public class PaperYearFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager;
         private List<Person> persons;
 
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean onBackPressedCheck() {
+            return true;
+        }
+
+        @Override
+        public Fragment SetFragmentData() {
+            int index, Subject_Id = 1;
+            String SubjectMassage = "Please select a subject to go", Subject;
+            DataBaseHelper myDb = new DataBaseHelper(MainActivity.getAppContext());
+            Cursor GradeCursor = myDb.getAllGradeSubjectData(5);
+            ArrayList<String> TmpArryLst = new ArrayList<String>();
+            try{
+                while (GradeCursor.moveToNext()) {
+                    index = GradeCursor.getColumnIndexOrThrow("Subject_Id");
+                    Subject_Id = Integer.parseInt(GradeCursor.getString(index));
+                    index = GradeCursor.getColumnIndexOrThrow("Subject");
+                    Subject = GradeCursor.getString(index);
+                    TmpArryLst.add(Subject);
+                }
+            }finally {
+                GradeCursor.close();
+            }
+
+            String[] SubjectArray = new String[TmpArryLst.size()];
+            SubjectArray = TmpArryLst.toArray(SubjectArray);
+
+            SubjectFragment Frag = new SubjectFragment();
+            Bundle arguments = new Bundle();
+            arguments.putInt("VALUE1", Subject_Id);
+            arguments.putString("VALUE2", SubjectMassage);
+            arguments.putStringArray("VALUE3", SubjectArray);
+            Frag.setArguments(arguments);
+            return Frag;
+        }
 
         @Nullable
         @Override
@@ -155,7 +194,7 @@ public class PaperYearFragment extends Fragment {
                             arguments.putInt("VALUE4", CorrectAnswerPosition);
                             Frag.setArguments(arguments);
                             FragmentManager fragmentManager = getFragmentManager();
-                            fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "TAG_FRAGMENT").commit();
+                            fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "TAG_FRAGMENT").addToBackStack("PaperYearFragment").commit();
 
                     }
 

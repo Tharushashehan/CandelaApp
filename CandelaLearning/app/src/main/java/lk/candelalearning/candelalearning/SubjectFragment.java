@@ -6,9 +6,13 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,7 +26,7 @@ import java.util.List;
  * Created by tharu on 4/19/2018.
  */
 
-public class SubjectFragment extends Fragment {
+public class SubjectFragment extends Fragment implements OnBackPressedListener {
 
         View myView;
         ListView answer_list_view;
@@ -32,8 +36,50 @@ public class SubjectFragment extends Fragment {
         CountDownTimer TheTimer;
         private List<Person> persons;
 
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean onBackPressedCheck() {
+            return true;
+        }
 
-        @Nullable
+        @Override
+        public Fragment SetFragmentData() {
+            Integer FirstArrayIndex = 0;
+            int VALUE1 = 0;
+            int index, Grade_Id;
+            String Grade, QuestionData = "These are the Grades, Please Select Relevent Grade";
+            myDb = new DataBaseHelper(MainActivity.getAppContext());
+            Cursor GradeCursor = myDb.getAllGradeData();
+            ArrayList<String> TmpArryLst = new ArrayList<String>();
+
+            try{
+                while (GradeCursor.moveToNext()) {
+                    index = GradeCursor.getColumnIndexOrThrow("Grade_Id");
+                    Grade_Id = Integer.parseInt(GradeCursor.getString(index));
+
+                    index = GradeCursor.getColumnIndexOrThrow("Grade");
+                    Grade = GradeCursor.getString(index);
+
+                    TmpArryLst.add("Grade "+Grade);
+                }
+            }finally {
+                GradeCursor.close();
+            }
+
+            String[] GradeArray = new String[TmpArryLst.size()];
+            GradeArray = TmpArryLst.toArray(GradeArray);
+            GradeFragment Frag = new GradeFragment();
+            Bundle arguments = new Bundle();
+            arguments.putInt("VALUE1", VALUE1);
+            arguments.putString("VALUE2", QuestionData);
+            arguments.putStringArray("VALUE3", GradeArray);
+            Frag.setArguments(arguments);
+            return Frag;
+        }
+
+    @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle
         savedInstanceState) {
@@ -98,11 +144,12 @@ public class SubjectFragment extends Fragment {
                 arguments.putParcelable("VALUE3", pp);
                 Frag.setArguments(arguments);
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "TAG_FRAGMENT").commit();
+                fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "PaperYearFragment").addToBackStack("PaperYearFragment").commit();
 
 
             }
         });
+
         return  myView;
     }
 
