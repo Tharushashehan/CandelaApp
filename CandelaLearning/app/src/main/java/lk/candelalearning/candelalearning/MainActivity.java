@@ -1,5 +1,6 @@
 package lk.candelalearning.candelalearning;
 
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -23,6 +24,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -54,6 +56,9 @@ public class MainActivity extends AppCompatActivity
     static ProgressBar progressBar;
     static TextView textViewTimer;
     View vw;
+    Dialog dialog;
+    Button DialogBackButton;
+    //Button DialogCancelButton;
 
 
 
@@ -68,6 +73,13 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         MainActivity.context = getApplicationContext();
+        //dialog = new Dialog(context);
+        dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.dialog_layout);//popup view is the layout you created
+
+        DialogBackButton = (Button) dialog.findViewById(R.id.button);
+        //DialogCancelButton = (Button) dialog.findViewById(R.id.button2);
+
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
         textViewTimer = (TextView)findViewById(R.id.textViewTimer);
         //progressBar.getProgressDrawable().setColorFilter(Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
@@ -147,6 +159,49 @@ public class MainActivity extends AppCompatActivity
             }
         });
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+
+        DialogBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Here we move again to papers
+                //START
+                int Year_Id, index;
+                String Year;
+                String Subject = "Please select a paper from of a year";
+                myDb = new DataBaseHelper(MainActivity.getAppContext());
+                Cursor GradeCursorForPaperYear = myDb.getPaperYear();
+                List<Person> persons = new ArrayList<>();
+
+                try {
+                    while (GradeCursorForPaperYear.moveToNext()) {
+                        index = GradeCursorForPaperYear.getColumnIndexOrThrow("Year_Id");
+                        Year_Id = Integer.parseInt(GradeCursorForPaperYear.getString(index));
+
+                        index = GradeCursorForPaperYear.getColumnIndexOrThrow("Year");
+                        Year = GradeCursorForPaperYear.getString(index);
+
+                        persons.add(new Person("Paper of year " + Year, Year_Id));
+                    }
+                } finally {
+                    GradeCursorForPaperYear.close();
+                }
+
+                PaperYearFragment Frag = new PaperYearFragment();
+                Bundle arguments = new Bundle();
+                arguments.putString("VALUE2", Subject);
+                //arguments.putSerializable("VALUE3", (Serializable) persons);
+                Persons pp = new Persons(persons);
+                arguments.putParcelable("VALUE3", pp);
+                Frag.setArguments(arguments);
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_frame, Frag, "PaperYearFragment").addToBackStack("PaperYearFragment").commit();
+                //END
+                MainActivity.GetProgressBar().setVisibility(View.GONE);
+                MainActivity.getTextViewTimer().setVisibility(View.GONE);
+                dialog.hide();
+            }
+        });
     }
 
     @Override
@@ -343,6 +398,7 @@ public class MainActivity extends AppCompatActivity
                     FragmentManager fragmentManager = getFragmentManager();
                     SubjectFragment mySubjectFragment = (SubjectFragment)getFragmentManager().findFragmentByTag("SubjectFragment");
                     PaperYearFragment myPaperYearFragment = (PaperYearFragment)getFragmentManager().findFragmentByTag("PaperYearFragment");
+                    mcqFragment myMcqFragment = (mcqFragment)getFragmentManager().findFragmentByTag("MCQFragment");
 
                     if (mwebView.canGoBack()) {
                         mwebView.goBack();
@@ -354,6 +410,10 @@ public class MainActivity extends AppCompatActivity
                         fragmentManager.beginTransaction().replace(R.id.content_frame , myPaperYearFragment.SetFragmentData() , "SubjectFragment").addToBackStack("SubjectFragment").commit();
                         progressBar.setVisibility(View.GONE);
                         textViewTimer.setVisibility(View.GONE);
+                    }else if (myMcqFragment != null && myMcqFragment.isVisible()){
+                        dialog.show();
+                        Window window = dialog.getWindow();
+                        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT); //
                     }else{
                         finish();
                     }

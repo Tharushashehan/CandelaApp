@@ -194,7 +194,7 @@ public class PaperYearFragment extends Fragment implements OnBackPressedListener
                             arguments.putInt("VALUE4", CorrectAnswerPosition);
                             Frag.setArguments(arguments);
                             FragmentManager fragmentManager = getFragmentManager();
-                            fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "TAG_FRAGMENT").addToBackStack("PaperYearFragment").commit();
+                            fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "MCQFragment").addToBackStack("MCQFragment").commit();
 
                     }
 
