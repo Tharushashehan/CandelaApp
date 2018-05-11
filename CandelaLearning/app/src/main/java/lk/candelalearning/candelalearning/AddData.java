@@ -1,5 +1,7 @@
 package lk.candelalearning.candelalearning;
 
+import static lk.candelalearning.candelalearning.R.drawable.question_img01;
+
 /**
  * Created by tharu on 4/21/2018.
  */
@@ -169,6 +171,24 @@ public class AddData {
             myDb.insertYear(2,1,1,2017);
             myDb.insertYear(3,1,1,2016);
             myDb.insertYear(4,1,1,2015);
+        }else if (myDb.numberOfRows("Question_Img")<1){
+            //Adding images to the question
+            myDb.insertQuestion_Img(1,R.drawable.question_img01,"question_img01",1,1);
+            myDb.insertQuestion_Img(2,R.drawable.question_img02,"question_img02",1,2);
+            myDb.insertQuestion_Img(3,R.drawable.question_img03,"question_img03",1,3);
+            myDb.insertQuestion_Img(4,R.drawable.question_img04,"question_img04",1,4);
+            myDb.insertQuestion_Img(5,R.drawable.question_img05,"question_img05",1,5);
+            myDb.insertQuestion_Img(6,R.drawable.question_img06,"question_img06",1,6);
+            myDb.insertQuestion_Img(7,R.drawable.question_img07,"question_img07",1,7);
+
+            //adding images to the answers
+            myDb.insertAnswer_Img(1,R.drawable.question_img01,"question_img01",1,1,1);
+            myDb.insertAnswer_Img(2,R.drawable.question_img02,"question_img02",1,2,1);
+            myDb.insertAnswer_Img(3,R.drawable.question_img03,"question_img03",1,3,1);
+            myDb.insertAnswer_Img(4,R.drawable.question_img04,"question_img04",1,4,1);
+            myDb.insertAnswer_Img(5,R.drawable.question_img05,"question_img05",1,5,3);
+            myDb.insertAnswer_Img(6,R.drawable.question_img06,"question_img06",1,6,3);
+            myDb.insertAnswer_Img(7,R.drawable.question_img07,"question_img07",1,7,3);
         }
         //END
     }

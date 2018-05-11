@@ -19,7 +19,7 @@ package lk.candelalearning.candelalearning;
 
 public class DataBaseHelper extends SQLiteOpenHelper  {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME="Student";
    /* public static final String TABLE_NAME="Student_table";
     public static final String COL_1="ID";
@@ -43,6 +43,10 @@ public class DataBaseHelper extends SQLiteOpenHelper  {
         db.execSQL(String.format("create table Grade (Ref_Id integer primary key AUTOINCREMENT, Grade_Id integer, Grade integer)"));
         db.execSQL(String.format("create table Subject (Ref_Id integer primary key AUTOINCREMENT, Subject_Id integer, Grade_Id integer, Subject text)"));
         db.execSQL(String.format("create table Paper_Year (Ref_Id integer primary key AUTOINCREMENT, Year_Id integer, Subject_Id integer, Paper_No integer, Year integer)"));
+
+        //Newly added image table
+        db.execSQL(String.format("create table Question_Img (Ref_Id integer primary key AUTOINCREMENT, img_Id integer, photo_Id integer,  img_Name text, Paper_Year_Id integer, Question_Id integer)"));
+        db.execSQL(String.format("create table Answr_Img (Ref_Id integer primary key AUTOINCREMENT, img_Id integer, photo_Id integer,  img_Name text, Paper_Year_Id integer, Question_Id integer, Answer_Id integer )"));
     }
 
     @Override
@@ -56,7 +60,47 @@ public class DataBaseHelper extends SQLiteOpenHelper  {
         db.execSQL(String.format("DROP TABLE IF EXISTS Subject"));
         db.execSQL(String.format("DROP TABLE IF EXISTS Paper_Year"));
 
+        db.execSQL(String.format("DROP TABLE IF EXISTS Question_Img"));
+        db.execSQL(String.format("DROP TABLE IF EXISTS Answr_Img"));
+
         onCreate(db);
+    }
+
+    public  boolean insertQuestion_Img ( Integer img_Id, Integer photo_Id, String img_Name, Integer  Paper_Year_Id, Integer Question_Id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("img_Id", img_Id);
+        contentValues.put("photo_Id", photo_Id);
+        contentValues.put("img_Name", img_Name);
+        contentValues.put("Paper_Year_Id", Paper_Year_Id);
+        contentValues.put("Question_Id", Question_Id);
+        db.insert("Question_Img", null, contentValues);
+        return true;
+    }
+
+    public  boolean insertAnswer_Img (Integer img_Id , Integer photo_Id, String img_Name , Integer Paper_Year_Id , Integer Question_Id , Integer Answer_Id ){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("img_Id", img_Id);
+        contentValues.put("photo_Id", photo_Id);
+        contentValues.put("img_Name", img_Name);
+        contentValues.put("Paper_Year_Id", Paper_Year_Id);
+        contentValues.put("Question_Id", Question_Id);
+        contentValues.put("Answer_Id", Answer_Id);
+        db.insert("Answr_Img", null, contentValues);
+        return true;
+    }
+
+    public Cursor getImgDataForQuestionId(int Qid, int Paper_Year_Id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from Question_Img where Question_Id="+Qid+" and Paper_Year_Id = " +Paper_Year_Id+" ", null );
+        return res;
+    }
+
+    public Cursor getImgDataForAnswerId(int Qid, int Paper_Year_Id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from Answr_Img where Question_Id="+Qid+" and Paper_Year_Id = " +Paper_Year_Id+" ", null );
+        return res;
     }
 
     public boolean insertUser ( Integer User_Id, String Name, String  Phone) {

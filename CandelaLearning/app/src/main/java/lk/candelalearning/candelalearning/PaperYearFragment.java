@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -184,14 +185,53 @@ public class PaperYearFragment extends Fragment implements OnBackPressedListener
                             }finally {
                                 AnswerCursor.close();
                             }
+
+                            //Get the image details from DB
+                            //START
+                            Cursor QuestionimgCursor = myDb.getImgDataForQuestionId(Question_Id, 1);
+                            int img_Name = 0;
+                            try{
+                                while (QuestionimgCursor.moveToNext()) {
+                                    index = QuestionimgCursor.getColumnIndexOrThrow("photo_Id");
+                                    img_Name = Integer.parseInt(QuestionimgCursor.getString(index));
+                                }
+                            }finally {
+                                QuestionimgCursor.close();
+                            }
+
+                            Cursor AnswerimgCursor = myDb.getImgDataForAnswerId(Question_Id, 1);
+                            ArrayList<Integer> TmpAnswerImgArryLst = new ArrayList<Integer>();
+                            int Answr_img_Name = 0;
+                            try{
+                                while (AnswerimgCursor.moveToNext()) {
+                                    index = AnswerimgCursor.getColumnIndexOrThrow("photo_Id");
+                                    Answr_img_Name = Integer.parseInt(AnswerimgCursor.getString(index));
+                                    TmpAnswerImgArryLst.add(Answr_img_Name);
+                                }
+                            }finally {
+                                AnswerimgCursor.close();
+                            }
+
+                            //END
+
                             String[] AnswerArray = new String[TmpArryLst.size()];
                             AnswerArray = TmpArryLst.toArray(AnswerArray);
+
+                            int[] AnswerImgArry = new int[TmpAnswerImgArryLst.size()];
+                            Iterator<Integer> iterator = TmpAnswerImgArryLst.iterator();
+                            for (int i = 0; i < AnswerImgArry.length; i++)
+                            {
+                                AnswerImgArry[i] = iterator.next().intValue();
+                            }
+                            //AnswerImgArry = TmpAnswerImgArryLst.toArray(AnswerImgArry);
                             mcqFragment Frag = new mcqFragment();
                             Bundle arguments = new Bundle();
                             arguments.putInt("VALUE1", VALUE1);
                             arguments.putString("VALUE2", QuestionData);
                             arguments.putStringArray("VALUE3", AnswerArray);
                             arguments.putInt("VALUE4", CorrectAnswerPosition);
+                            arguments.putInt("VALUE5", img_Name);
+                            arguments.putIntArray("VALUE6", AnswerImgArry);
                             Frag.setArguments(arguments);
                             FragmentManager fragmentManager = getFragmentManager();
                             fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "MCQFragment").addToBackStack("MCQFragment").commit();

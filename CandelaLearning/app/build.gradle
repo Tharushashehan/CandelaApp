@@ -11,6 +11,16 @@ android {
         versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    sourceSets {
+        main.res.srcDirs += 'src/main/res_img'
+
+//        main {
+//            res.srcDirs = [
+//                    'src/main/res/drawable_database_img',
+//                    'src/main/res'
+//            ]
+//        }
+    }
     buildTypes {
         release {
             minifyEnabled false
