@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -189,24 +190,30 @@ public class PaperYearFragment extends Fragment implements OnBackPressedListener
                             //Get the image details from DB
                             //START
                             Cursor QuestionimgCursor = myDb.getImgDataForQuestionId(Question_Id, 1);
-                            int img_Name = 0;
+                            String img_Name = " ";
                             try{
                                 while (QuestionimgCursor.moveToNext()) {
-                                    index = QuestionimgCursor.getColumnIndexOrThrow("photo_Id");
-                                    img_Name = Integer.parseInt(QuestionimgCursor.getString(index));
+                                    index = QuestionimgCursor.getColumnIndexOrThrow("img_Name");
+                                    img_Name = QuestionimgCursor.getString(index);
                                 }
                             }finally {
                                 QuestionimgCursor.close();
                             }
 
                             Cursor AnswerimgCursor = myDb.getImgDataForAnswerId(Question_Id, 1);
-                            ArrayList<Integer> TmpAnswerImgArryLst = new ArrayList<Integer>();
-                            int Answr_img_Name = 0;
+                            ArrayList<String> TmpAnswerImgArryLst = new ArrayList<String>();
+                            ArrayList<Integer> TmpAnswrIdLst = new ArrayList<Integer>();
+                            String Answr_img_Name = " ";
+                            int Tmp_Answer_Id = 0;
                             try{
                                 while (AnswerimgCursor.moveToNext()) {
-                                    index = AnswerimgCursor.getColumnIndexOrThrow("photo_Id");
-                                    Answr_img_Name = Integer.parseInt(AnswerimgCursor.getString(index));
+                                    index = AnswerimgCursor.getColumnIndexOrThrow("img_Name");
+                                    Answr_img_Name = AnswerimgCursor.getString(index);
                                     TmpAnswerImgArryLst.add(Answr_img_Name);
+
+                                    index = AnswerimgCursor.getColumnIndexOrThrow("Answer_Id");
+                                    Tmp_Answer_Id =  Integer.parseInt(AnswerimgCursor.getString(index));
+                                    TmpAnswrIdLst.add(Tmp_Answer_Id);
                                 }
                             }finally {
                                 AnswerimgCursor.close();
@@ -217,21 +224,26 @@ public class PaperYearFragment extends Fragment implements OnBackPressedListener
                             String[] AnswerArray = new String[TmpArryLst.size()];
                             AnswerArray = TmpArryLst.toArray(AnswerArray);
 
-                            int[] AnswerImgArry = new int[TmpAnswerImgArryLst.size()];
-                            Iterator<Integer> iterator = TmpAnswerImgArryLst.iterator();
-                            for (int i = 0; i < AnswerImgArry.length; i++)
+                            int[] AnswerIDArry = new int[TmpAnswrIdLst.size()];
+                            Iterator<Integer> iterator = TmpAnswrIdLst.iterator();
+                            for (int i = 0; i < AnswerIDArry.length; i++)
                             {
-                                AnswerImgArry[i] = iterator.next().intValue();
+                                AnswerIDArry[i] = iterator.next().intValue();
                             }
+
+                            String[] AnswerImgArry = new String[TmpAnswerImgArryLst.size()];
+                            AnswerImgArry = TmpAnswerImgArryLst.toArray(AnswerImgArry);
+
                             //AnswerImgArry = TmpAnswerImgArryLst.toArray(AnswerImgArry);
-                            mcqFragment Frag = new mcqFragment();
+                            McqRecyclerView_mcqFragment Frag = new McqRecyclerView_mcqFragment();
                             Bundle arguments = new Bundle();
                             arguments.putInt("VALUE1", VALUE1);
                             arguments.putString("VALUE2", QuestionData);
                             arguments.putStringArray("VALUE3", AnswerArray);
                             arguments.putInt("VALUE4", CorrectAnswerPosition);
-                            arguments.putInt("VALUE5", img_Name);
-                            arguments.putIntArray("VALUE6", AnswerImgArry);
+                            arguments.putString("VALUE5", img_Name);
+                            arguments.putStringArray("VALUE6", AnswerImgArry);
+                            arguments.putIntArray("VALUE7", AnswerIDArry);
                             Frag.setArguments(arguments);
                             FragmentManager fragmentManager = getFragmentManager();
                             fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "MCQFragment").addToBackStack("MCQFragment").commit();

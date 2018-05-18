@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
     int LastCorrectness = 35;
     CountDownTimer TheTimer;
     FloatingActionButton fab_select;
-    int position;
+    private int AnsGivenPosition;
     boolean selected = false;
     private List<Person> persons;
     boolean SMSViewed = false;
@@ -90,23 +91,41 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                     value2 = bundle.getString("VALUE2", "h");
                     StringArray = bundle.getStringArray("VALUE3");
                     LastCorrectness = bundle.getInt("VALUE4", -1);
-                    int VALUE5 = bundle.getInt("VALUE5", -1);
-                    int[] VALUE6 =  bundle.getIntArray("VALUE6");
+                    String VALUE5 = bundle.getString("VALUE5");
+                    String[] VALUE6 =  bundle.getStringArray("VALUE6");
+                    int[] VALUE7 =  bundle.getIntArray("VALUE7");
                     tv.setText("Q: " + QuestionNumber + ") " + value2);
-                    imageViewQuestion.setImageResource(VALUE5);
+                    //imageViewQuestion.setImageResource(VALUE5);
+
+                    int resID = getResources().getIdentifier( VALUE5 , "drawable", MainActivity.getAppContext().getPackageName());
+                    imageViewQuestion.setImageResource(resID);
+
                     MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
                     Ativityposition++;
                     QuestionNumber++;
 
-                    List<McqRecyclerView_Person> McqRecyclerView_Persons = new ArrayList<>();
-                    for(int i =0; i<VALUE6.length; i++){
-                        McqRecyclerView_Persons.add(new McqRecyclerView_Person(StringArray[i], 1 ,VALUE6[i]));
+                    List<McqRecyclerView_Person> McqRecyclerView_Persons_ArrayList = new ArrayList<>();
+                    for(int i =0, y=0, j=0; i<StringArray.length; i++){
+                        y++;
+                        boolean stts = true;
+                        for (int k=0; k<VALUE7.length; k++){
+                            if(VALUE7[k]==y){
+                                McqRecyclerView_Persons_ArrayList.add(new McqRecyclerView_Person(StringArray[i], 1 ,VALUE6[j]));
+                                j++;
+                                stts = false;
+                            }
+                        }
+                        if(stts){
+                            McqRecyclerView_Persons_ArrayList.add(new McqRecyclerView_Person(StringArray[i], 1 ,"candelalogo"));
+                        }
                     }
 
-                    McqRecyclerView_Persons pp = new McqRecyclerView_Persons(McqRecyclerView_Persons);
-                    McqRecyclerView_Persons = pp.getPersonData();
-                    McqRecyclerView_RVAdapter Recycleadapter = new McqRecyclerView_RVAdapter(McqRecyclerView_Persons);
-                        answer_recycle_view.setAdapter(Recycleadapter);
+                    McqRecyclerView_Persons pp = new McqRecyclerView_Persons(McqRecyclerView_Persons_ArrayList);
+                    List<McqRecyclerView_Person> McqRecyclerView_Persons_ArrayList_ToSet = pp.getPersonData();
+                    //McqRecyclerView_Persons_ArrayList_ToSet = pp.getPersonData();
+                    McqRecyclerView_RVAdapter Recycleadapter;
+                    Recycleadapter = new McqRecyclerView_RVAdapter(McqRecyclerView_Persons_ArrayList_ToSet);
+                    answer_recycle_view.setAdapter(Recycleadapter);
 
             }else{
                 tv.setText("Click next to start");
@@ -120,7 +139,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
             public void onClick(View view) {
                 if (Ativityposition >= 2 & QuestionNumber <= 10){
                     ShowData SD = new ShowData();
-                    McqRecyclerView_mcqFragment fragment =  SD.SetMCQ_RecyclerView_FragmentData(new DataBaseHelper(MainActivity.getAppContext()), Ativityposition);
+                    McqRecyclerView_mcqFragment fragment =  SD.SetMCQ_RecyclerView_FragmentData_Edit(new DataBaseHelper(MainActivity.getAppContext()), Ativityposition);
                     try{
                         int value1=0;
                         String value2=" ";
@@ -129,17 +148,59 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                         Bundle bundle = fragment.getArguments();
                         if (bundle != null) {
 
+//                            value1 = bundle.getInt("VALUE1", -1);
+//                            value2 = bundle.getString("VALUE2", "h");
+//                            StringArray = bundle.getStringArray("VALUE3");
+//                            LastCorrectness = bundle.getInt("VALUE4", -1);
+//                            tv.setText("Q: " + QuestionNumber + ") " + value2);
+//
+//                            adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, StringArray);
+
+                            //Starting data adding from the fragment
+                            //START
                             value1 = bundle.getInt("VALUE1", -1);
                             value2 = bundle.getString("VALUE2", "h");
                             StringArray = bundle.getStringArray("VALUE3");
                             LastCorrectness = bundle.getInt("VALUE4", -1);
+                            String VALUE5 = bundle.getString("VALUE5");
+                            String[] VALUE6 =  bundle.getStringArray("VALUE6");
+                            int[] VALUE7 =  bundle.getIntArray("VALUE7");
                             tv.setText("Q: " + QuestionNumber + ") " + value2);
+                            //imageViewQuestion.setImageResource(VALUE5);
 
-                            adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, StringArray);
+                            int resID = getResources().getIdentifier( VALUE5 , "drawable", MainActivity.getAppContext().getPackageName());
+                            imageViewQuestion.setImageResource(resID);
+
+                            List<McqRecyclerView_Person> McqRecyclerView_Persons_ArrayList = new ArrayList<>();
+                            for(int i =0, y=0, j=0; i<StringArray.length; i++){
+                                y++;
+                                boolean stts = true;
+                                for (int k=0; k<VALUE7.length; k++){
+                                    if(VALUE7[k]==y){
+                                        McqRecyclerView_Persons_ArrayList.add(new McqRecyclerView_Person(StringArray[i], 1 ,VALUE6[j]));
+                                        j++;
+                                        stts = false;
+                                    }
+                                }
+                                if(stts){
+                                    McqRecyclerView_Persons_ArrayList.add(new McqRecyclerView_Person(StringArray[i], 1 ,"candelalogo"));
+                                }
+                            }
+
+                            McqRecyclerView_Persons pp = new McqRecyclerView_Persons(McqRecyclerView_Persons_ArrayList);
+                            List<McqRecyclerView_Person> McqRecyclerView_Persons_ArrayList_ToSet = pp.getPersonData();
+                            //McqRecyclerView_Persons_ArrayList_ToSet = pp.getPersonData();
+                            McqRecyclerView_RVAdapter Recycleadapter;
+                            Recycleadapter = new McqRecyclerView_RVAdapter(McqRecyclerView_Persons_ArrayList_ToSet);
+                            answer_recycle_view.setAdapter(Recycleadapter);
+
+                            //END
+
+
                             MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
                             Ativityposition++;
                             QuestionNumber++;
-                            answer_list_view.setAdapter(adapter);
+                            //answer_list_view.setAdapter(adapter);
                             selected = false;
                         }else{
                             tv.setText("Click next to start");
@@ -153,7 +214,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                     String Subject, Phone="001";
                     MainActivity.getnext_button().setVisibility(View.GONE);
                     tv.setText("Your result is " + Integer.toString(Marks) + " out of 10");
-                    answer_list_view.setAdapter(null);
+                    //answer_list_view.setAdapter(null);
                     myDb = new DataBaseHelper(MainActivity.getAppContext());
                     Cursor GradeCursor = myDb.getUserPhoneNo();
 
@@ -173,20 +234,6 @@ public class McqRecyclerView_mcqFragment extends Fragment{
             }
         });
 
-        answer_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                if (Ativityposition >= 2){
-                    selected = true;
-                    answer_list_view.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-                    answer_list_view.setSelector(android.R.color.holo_green_dark);
-                    answer_list_view.setSelector(android.R.color.background_dark);
-                }
-            }
-        });
-
-
         fab_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -195,7 +242,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
 
                         if(selected){
                             ShowData SD = new ShowData();
-                            McqRecyclerView_mcqFragment fragment =  SD.SetMCQ_RecyclerView_FragmentData(new DataBaseHelper(MainActivity.getAppContext()), Ativityposition);
+                            McqRecyclerView_mcqFragment fragment =  SD.SetMCQ_RecyclerView_FragmentData_Edit(new DataBaseHelper(MainActivity.getAppContext()), Ativityposition);
 
                             try{
                                 int value1=0;
@@ -204,20 +251,59 @@ public class McqRecyclerView_mcqFragment extends Fragment{
 
                                 Bundle bundle = fragment.getArguments();
                                 if (bundle != null) {
-                                    if (LastCorrectness==position){
+                                    if (LastCorrectness==AnsGivenPosition){
                                         Marks++;
                                     }
+//                                    value1 = bundle.getInt("VALUE1", -1);
+//                                    value2 = bundle.getString("VALUE2", "h");
+//                                    StringArray = bundle.getStringArray("VALUE3");
+//                                    LastCorrectness = bundle.getInt("VALUE4", -1);
+//                                    tv.setText("Q: " + QuestionNumber + ") " + value2);
+//
+//                                    adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, StringArray);
+
+                                    //Starting data adding from the fragment
+                                    //START
                                     value1 = bundle.getInt("VALUE1", -1);
                                     value2 = bundle.getString("VALUE2", "h");
                                     StringArray = bundle.getStringArray("VALUE3");
                                     LastCorrectness = bundle.getInt("VALUE4", -1);
+                                    String VALUE5 = bundle.getString("VALUE5");
+                                    String[] VALUE6 =  bundle.getStringArray("VALUE6");
+                                    int[] VALUE7 =  bundle.getIntArray("VALUE7");
                                     tv.setText("Q: " + QuestionNumber + ") " + value2);
+                                    //imageViewQuestion.setImageResource(VALUE5);
 
-                                    adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, StringArray);
+                                    int resID = getResources().getIdentifier( VALUE5 , "drawable", MainActivity.getAppContext().getPackageName());
+                                    imageViewQuestion.setImageResource(resID);
+
+                                    List<McqRecyclerView_Person> McqRecyclerView_Persons_ArrayList = new ArrayList<>();
+                                    for(int i =0, y=0, j=0; i<StringArray.length; i++){
+                                        y++;
+                                        boolean stts = true;
+                                        for (int k=0; k<VALUE7.length; k++){
+                                            if(VALUE7[k]==y){
+                                                McqRecyclerView_Persons_ArrayList.add(new McqRecyclerView_Person(StringArray[i], 1 ,VALUE6[j]));
+                                                j++;
+                                                stts = false;
+                                            }
+                                        }
+                                        if(stts){
+                                            McqRecyclerView_Persons_ArrayList.add(new McqRecyclerView_Person(StringArray[i], 1 ,"candelalogo"));
+                                        }
+                                    }
+                                    McqRecyclerView_Persons pp = new McqRecyclerView_Persons(McqRecyclerView_Persons_ArrayList);
+                                    List<McqRecyclerView_Person> McqRecyclerView_Persons_ArrayList_ToSet = pp.getPersonData();
+                                    //McqRecyclerView_Persons_ArrayList_ToSet = pp.getPersonData();
+                                    McqRecyclerView_RVAdapter Recycleadapter;
+                                    Recycleadapter = new McqRecyclerView_RVAdapter(McqRecyclerView_Persons_ArrayList_ToSet);
+                                    answer_recycle_view.setAdapter(Recycleadapter);
+                                    //END
+
                                     MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
                                     Ativityposition++;
                                     QuestionNumber++;
-                                    answer_list_view.setAdapter(adapter);
+                                    //answer_list_view.setAdapter(adapter);
                                     selected = false;
                                 }else{
                                     tv.setText("Click next to start");
@@ -235,7 +321,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                         String Subject, Phone="001";
                         MainActivity.getnext_button().setVisibility(View.GONE);
                         tv.setText("Your result is " + Integer.toString(Marks) + " out of 10");
-                        answer_list_view.setAdapter(null);
+                        //answer_list_view.setAdapter(null);
                         myDb = new DataBaseHelper(MainActivity.getAppContext());
                         Cursor GradeCursor = myDb.getUserPhoneNo();
 
@@ -262,7 +348,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                             Cursor GradeCursorForPaperYear = myDb.getPaperYear();
                             persons = new ArrayList<>();
 
-                            answer_list_view.setVisibility(View.GONE);
+                            //answer_list_view.setVisibility(View.GONE);
 
                             try {
                                 while (GradeCursorForPaperYear.moveToNext()) {
@@ -294,6 +380,19 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                     }
             }
         });
+
+        answer_recycle_view.addOnItemTouchListener(
+                new RecyclerItemClickListener(myView.getContext(), answer_recycle_view ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        AnsGivenPosition = position+1;
+                        selected = true;
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        Toast.makeText(myView.getContext(), "Don't Long Press", Toast.LENGTH_LONG).show();
+                    }
+                })
+        );
         return  myView;
     }
 }
