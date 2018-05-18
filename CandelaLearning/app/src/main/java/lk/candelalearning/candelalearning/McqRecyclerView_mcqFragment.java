@@ -97,8 +97,12 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                     tv.setText("Q: " + QuestionNumber + ") " + value2);
                     //imageViewQuestion.setImageResource(VALUE5);
 
-                    int resID = getResources().getIdentifier( VALUE5 , "drawable", MainActivity.getAppContext().getPackageName());
-                    imageViewQuestion.setImageResource(resID);
+                    if(VALUE5 ==""){
+                        imageViewQuestion.setImageResource(android.R.color.transparent);
+                    }else{
+                        int resID = getResources().getIdentifier( VALUE5 , "drawable", MainActivity.getAppContext().getPackageName());
+                        imageViewQuestion.setImageResource(resID);
+                    }
 
                     MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
                     Ativityposition++;
@@ -168,8 +172,13 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                             tv.setText("Q: " + QuestionNumber + ") " + value2);
                             //imageViewQuestion.setImageResource(VALUE5);
 
-                            int resID = getResources().getIdentifier( VALUE5 , "drawable", MainActivity.getAppContext().getPackageName());
-                            imageViewQuestion.setImageResource(resID);
+                            if(VALUE5 ==""){
+                                imageViewQuestion.setImageResource(android.R.color.transparent);
+                            }else{
+                                int resID = getResources().getIdentifier( VALUE5 , "drawable", MainActivity.getAppContext().getPackageName());
+                                imageViewQuestion.setImageResource(resID);
+                            }
+
 
                             List<McqRecyclerView_Person> McqRecyclerView_Persons_ArrayList = new ArrayList<>();
                             for(int i =0, y=0, j=0; i<StringArray.length; i++){
@@ -274,8 +283,12 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                                     tv.setText("Q: " + QuestionNumber + ") " + value2);
                                     //imageViewQuestion.setImageResource(VALUE5);
 
-                                    int resID = getResources().getIdentifier( VALUE5 , "drawable", MainActivity.getAppContext().getPackageName());
-                                    imageViewQuestion.setImageResource(resID);
+                                    if(VALUE5 ==""){
+                                        imageViewQuestion.setImageResource(android.R.color.transparent);
+                                    }else{
+                                        int resID = getResources().getIdentifier( VALUE5 , "drawable", MainActivity.getAppContext().getPackageName());
+                                        imageViewQuestion.setImageResource(resID);
+                                    }
 
                                     List<McqRecyclerView_Person> McqRecyclerView_Persons_ArrayList = new ArrayList<>();
                                     for(int i =0, y=0, j=0; i<StringArray.length; i++){

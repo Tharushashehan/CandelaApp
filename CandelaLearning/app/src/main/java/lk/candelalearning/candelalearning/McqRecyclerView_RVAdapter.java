@@ -23,7 +23,7 @@ import static java.security.AccessController.getContext;
 
 public class McqRecyclerView_RVAdapter extends RecyclerView.Adapter<McqRecyclerView_RVAdapter.PersonViewHolder>{
 
-    private int selectedPosition;
+    private int selectedPosition = 10;
 
     public static class PersonViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
@@ -71,18 +71,27 @@ public class McqRecyclerView_RVAdapter extends RecyclerView.Adapter<McqRecyclerV
     public void onBindViewHolder(PersonViewHolder personViewHolder, final int i) {
         personViewHolder.personName.setText(persons.get(i).name);
         //String my_image = persons.get(i).photoName;
-        int resID = MainActivity.getAppContext().getResources().getIdentifier( persons.get(i).photoName , "drawable", MainActivity.getAppContext().getPackageName());
-        personViewHolder.img.setImageResource(resID);
+        if(persons.get(i).photoName =="candelalogo"){
+            personViewHolder.img.setImageResource(android.R.color.transparent);
+        }else{
+            int resID = MainActivity.getAppContext().getResources().getIdentifier( persons.get(i).photoName , "drawable", MainActivity.getAppContext().getPackageName());
+            personViewHolder.img.setImageResource(resID);
+        }
+
         //personViewHolder.img.setImageResource(R.drawable.candelalogo);
         //personViewHolder.switch_Paper_status.setText(persons.get(i).switch_Paper_status);
         //personViewHolder.personAge.setText(persons.get(i).age);
         //personViewHolder.personPhoto.setImageResource(persons.get(i).photoId);
-        personViewHolder.itemView.setBackgroundColor(Color.parseColor("#000000"));
+        //personViewHolder.itemView.setBackgroundColor(Color.parseColor("#000000"));
 
-        if(selectedPosition==i)
+        if(selectedPosition==i){
             personViewHolder.itemView.setBackgroundColor(Color.parseColor("#000000"));
-        else
+            personViewHolder.personName.setTextColor(Color.parseColor("#ff0000"));
+        }
+        else{
             personViewHolder.itemView.setBackgroundColor(Color.parseColor("#ffffff"));
+            personViewHolder.personName.setTextColor(Color.parseColor("#000000"));
+        }
 
         personViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

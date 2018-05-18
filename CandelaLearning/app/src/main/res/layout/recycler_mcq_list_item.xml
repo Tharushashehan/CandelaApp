@@ -33,14 +33,13 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/person_name"
-                android:layout_alignParentTop="true"
-                android:textSize="18sp"
-                android:text="Paper number"
-                />
+                    <TextView
+                        android:id="@+id/person_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:text="Paper number"
+                        android:textSize="10sp" />
         </TableRow>
         <TableRow
             android:descendantFocusability="beforeDescendants"
