@@ -110,7 +110,7 @@ public class PaperYearFragment extends Fragment implements OnBackPressedListener
                 MainActivity.getnext_button().setVisibility(View.GONE);
                 MainActivity.GetProgressBar().setProgress(0);
                 //TheTimer.cancel();
-                MainActivity.getTextViewTimer().setText("Lets Start");
+                //MainActivity.getTextViewTimer().setText("Lets Start");
 
             }else{
                 tv.setText("Click next to start");
@@ -180,7 +180,8 @@ public class PaperYearFragment extends Fragment implements OnBackPressedListener
                                         CorrectAnswerPosition = CorrectAnswerPositionTemp;
                                     }
                                     CorrectAnswerPositionTemp++;
-                                    TmpArryLst.add(numb + ") " + Answer);
+//                                    TmpArryLst.add(numb + ") " + Answer);
+                                    TmpArryLst.add(Answer);
                                     numb++;
                                 }
                             }finally {

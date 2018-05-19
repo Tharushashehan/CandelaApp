@@ -48,6 +48,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
     RecyclerView answer_recycle_view;
     RecyclerView.LayoutManager mLayoutManager;
     ImageView imageViewQuestion;
+    private TextView textViewTimer;
 
 
     @Nullable
@@ -62,7 +63,8 @@ public class McqRecyclerView_mcqFragment extends Fragment{
         answer_recycle_view.setLayoutManager(mLayoutManager);
         answer_recycle_view.setVisibility(View.VISIBLE);
         fab_select = (FloatingActionButton) myView.findViewById(R.id.fab_select);
-        MainActivity.getTextViewTimer().setVisibility(View.VISIBLE);
+        textViewTimer = (TextView)myView.findViewById(R.id.textViewTimer);
+        //MainActivity.getTextViewTimer().setVisibility(View.VISIBLE);
         MainActivity.GetProgressBar().setVisibility(View.VISIBLE);
 
         try{
@@ -70,10 +72,10 @@ public class McqRecyclerView_mcqFragment extends Fragment{
             TheTimer = new CountDownTimer(30000, 1000) {
                 public void onTick(long millisUntilFinished) {
 
-                    MainActivity.getTextViewTimer().setText("Seconds: " + millisUntilFinished / 1000);
+                    textViewTimer.setText(millisUntilFinished / 1000 + ":00");
                 }
                 public void onFinish() {
-                    MainActivity.getTextViewTimer().setText("Done");
+                    textViewTimer.setText("Done");
                     QuestionNumber = 11;
                 }
             }.start();
@@ -94,7 +96,8 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                     String VALUE5 = bundle.getString("VALUE5");
                     String[] VALUE6 =  bundle.getStringArray("VALUE6");
                     int[] VALUE7 =  bundle.getIntArray("VALUE7");
-                    tv.setText("Q: " + QuestionNumber + ") " + value2);
+                    //tv.setText( QuestionNumber + ") " + value2);
+                    tv.setText( value2);
                     //imageViewQuestion.setImageResource(VALUE5);
 
                     if(VALUE5 ==""){
@@ -169,7 +172,8 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                             String VALUE5 = bundle.getString("VALUE5");
                             String[] VALUE6 =  bundle.getStringArray("VALUE6");
                             int[] VALUE7 =  bundle.getIntArray("VALUE7");
-                            tv.setText("Q: " + QuestionNumber + ") " + value2);
+//                            tv.setText(QuestionNumber + ") " + value2);
+                            tv.setText(value2);
                             //imageViewQuestion.setImageResource(VALUE5);
 
                             if(VALUE5 ==""){
@@ -280,7 +284,8 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                                     String VALUE5 = bundle.getString("VALUE5");
                                     String[] VALUE6 =  bundle.getStringArray("VALUE6");
                                     int[] VALUE7 =  bundle.getIntArray("VALUE7");
-                                    tv.setText("Q: " + QuestionNumber + ") " + value2);
+                                    //tv.setText(QuestionNumber + ") " + value2);
+                                    tv.setText(value2);
                                     //imageViewQuestion.setImageResource(VALUE5);
 
                                     if(VALUE5 ==""){
@@ -388,7 +393,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                             fragmentManager.beginTransaction().replace(R.id.content_frame, Frag, "PaperYearFragment").addToBackStack("PaperYearFragment").commit();
                             //END
                             MainActivity.GetProgressBar().setVisibility(View.GONE);
-                            MainActivity.getTextViewTimer().setVisibility(View.GONE);
+                            //MainActivity.getTextViewTimer().setVisibility(View.GONE);
                         }
                     }
             }

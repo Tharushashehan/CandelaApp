@@ -87,7 +87,7 @@ public class mcqFragment extends Fragment{
         tv = (TextView) myView.findViewById(R.id.textView2);
         answer_list_view = (ListView) myView.findViewById(R.id.answer_list_view);
         fab_select = (FloatingActionButton) myView.findViewById(R.id.fab_select);
-        MainActivity.getTextViewTimer().setVisibility(View.VISIBLE);
+        //MainActivity.getTextViewTimer().setVisibility(View.VISIBLE);
         MainActivity.GetProgressBar().setVisibility(View.VISIBLE);
 
         try{
@@ -95,10 +95,10 @@ public class mcqFragment extends Fragment{
             TheTimer = new CountDownTimer(30000, 1000) {
                 public void onTick(long millisUntilFinished) {
 
-                    MainActivity.getTextViewTimer().setText("Seconds: " + millisUntilFinished / 1000);
+                    //MainActivity.getTextViewTimer().setText("Seconds: " + millisUntilFinished / 1000);
                 }
                 public void onFinish() {
-                    MainActivity.getTextViewTimer().setText("Done");
+                    //MainActivity.getTextViewTimer().setText("Done");
                     QuestionNumber = 11;
                 }
             }.start();
@@ -305,7 +305,7 @@ public class mcqFragment extends Fragment{
                             fragmentManager.beginTransaction().replace(R.id.content_frame, Frag, "PaperYearFragment").addToBackStack("PaperYearFragment").commit();
                             //END
                             MainActivity.GetProgressBar().setVisibility(View.GONE);
-                            MainActivity.getTextViewTimer().setVisibility(View.GONE);
+                            //MainActivity.getTextViewTimer().setVisibility(View.GONE);
                         }
                     }
             }

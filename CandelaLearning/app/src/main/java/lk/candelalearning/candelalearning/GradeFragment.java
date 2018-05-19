@@ -51,7 +51,7 @@ public class GradeFragment extends Fragment {
                 answer_list_view.setAdapter(adapter);
                 MainActivity.getnext_button().setVisibility(View.GONE);
                 MainActivity.GetProgressBar().setProgress(0);
-                MainActivity.getTextViewTimer().setText("Lets Start");
+                //MainActivity.getTextViewTimer().setText("Lets Start");
             }else{
                 tv.setText("Click next to start");
             }

@@ -310,7 +310,8 @@ public class ShowData {
                     CorrectAnswerPosition = CorrectAnswerPositionTemp;
                 }
                 CorrectAnswerPositionTemp++;
-                TmpArryLst.add(numb + ") " + Answer);
+                //TmpArryLst.add(numb + ") " + Answer);
+                TmpArryLst.add(Answer);
                 numb++;
             }
         }finally {
@@ -368,12 +369,12 @@ public class ShowData {
 
         McqRecyclerView_mcqFragment fragment = new McqRecyclerView_mcqFragment();
         Bundle arguments = new Bundle();
-        arguments.putInt("VALUE1", VALUE1);
-        arguments.putString("VALUE2", QuestionData);
-        arguments.putStringArray("VALUE3", AnswerArray); //bundle.getStringArray("VALUE3");
-        arguments.putInt("VALUE4", CorrectAnswerPosition);
-        arguments.putString("VALUE5", img_Name);
-        arguments.putStringArray("VALUE6", AnswerImgArry);
+//        arguments.putInt("VALUE1", VALUE1);
+//        arguments.putString("VALUE2", QuestionData);
+//        arguments.putStringArray("VALUE3", AnswerArray); //bundle.getStringArray("VALUE3");
+//        arguments.putInt("VALUE4", CorrectAnswerPosition);
+//        arguments.putString("VALUE5", img_Name);
+//        arguments.putStringArray("VALUE6", AnswerImgArry);
 
 
         arguments.putInt("VALUE1", VALUE1);

@@ -13,6 +13,7 @@ android {
     }
     sourceSets {
         main.res.srcDirs += 'src/main/res_img'
+        main.res.srcDirs += 'src/main/res_numbers'
 
 //        main {
 //            res.srcDirs = [

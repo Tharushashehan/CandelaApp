@@ -45,14 +45,13 @@
             android:descendantFocusability="beforeDescendants"
             android:focusable="true"
             android:focusableInTouchMode="true" >
+
             <ImageView
                 android:id="@+id/imageViewAnswer"
-                app:srcCompat="@drawable/question_img02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxHeight="50dp"
-                android:maxWidth="50dp"
-                 />
+                android:maxWidth="50dp" />
         </TableRow>
     </TableLayout>
 
