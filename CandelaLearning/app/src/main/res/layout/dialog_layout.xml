@@ -78,7 +78,7 @@
         android:id="@+id/imageView5LinearLay"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border"
+        android:background="@drawable/border_bottom"
         android:layout_below="@+id/imageView4LinearLay"
         android:layout_alignEnd="@+id/imageView2LinearLay">
     <ImageView

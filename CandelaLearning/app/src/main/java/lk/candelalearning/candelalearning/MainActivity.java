@@ -405,6 +405,7 @@ public class MainActivity extends AppCompatActivity
                     SubjectFragment mySubjectFragment = (SubjectFragment)getFragmentManager().findFragmentByTag("SubjectFragment");
                     PaperYearFragment myPaperYearFragment = (PaperYearFragment)getFragmentManager().findFragmentByTag("PaperYearFragment");
                     McqRecyclerView_mcqFragment myMcqFragment = (McqRecyclerView_mcqFragment)getFragmentManager().findFragmentByTag("MCQFragment");
+                    InstructionFragment myInsFragmnt = (InstructionFragment)getFragmentManager().findFragmentByTag("InstructionFragment");
 
                    if (mySubjectFragment != null && mySubjectFragment.isVisible()) {
                         fragmentManager.beginTransaction().replace(R.id.content_frame , mySubjectFragment.SetFragmentData() , "GradeFragment").addToBackStack("GradeFragment").commit();
@@ -414,8 +415,10 @@ public class MainActivity extends AppCompatActivity
                         fragmentManager.beginTransaction().replace(R.id.content_frame , myPaperYearFragment.SetFragmentData() , "SubjectFragment").addToBackStack("SubjectFragment").commit();
                         progressBar.setVisibility(View.GONE);
                         //textViewTimer.setVisibility(View.GONE);
+                   }else if (myInsFragmnt != null && myInsFragmnt.isVisible()) {
+                       fragmentManager.beginTransaction().replace(R.id.content_frame , myPaperYearFragment.SetFragmentData() , "SubjectFragment").addToBackStack("SubjectFragment").commit();
+                       progressBar.setVisibility(View.GONE);
                     }else if (myMcqFragment != null && myMcqFragment.isVisible()){
-
                         Window window = dialog.getWindow();
                         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT); //

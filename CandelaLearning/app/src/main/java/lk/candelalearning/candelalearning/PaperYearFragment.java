@@ -126,7 +126,7 @@ public class PaperYearFragment extends Fragment implements OnBackPressedListener
                             answer_recycle_view.setVisibility(View.GONE);
 
 
-                            MainActivity.getnext_button().setVisibility(View.VISIBLE);
+
 
                             /*int VALUE1 = myDb.numberOfRows("Question");
                             int VALUE2 = myDb.numberOfRows("Answer");*/
@@ -236,7 +236,7 @@ public class PaperYearFragment extends Fragment implements OnBackPressedListener
                             AnswerImgArry = TmpAnswerImgArryLst.toArray(AnswerImgArry);
 
                             //AnswerImgArry = TmpAnswerImgArryLst.toArray(AnswerImgArry);
-                            McqRecyclerView_mcqFragment Frag = new McqRecyclerView_mcqFragment();
+                            InstructionFragment Frag = new InstructionFragment();
                             Bundle arguments = new Bundle();
                             arguments.putInt("VALUE1", VALUE1);
                             arguments.putString("VALUE2", QuestionData);
@@ -247,7 +247,7 @@ public class PaperYearFragment extends Fragment implements OnBackPressedListener
                             arguments.putIntArray("VALUE7", AnswerIDArry);
                             Frag.setArguments(arguments);
                             FragmentManager fragmentManager = getFragmentManager();
-                            fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "MCQFragment").addToBackStack("MCQFragment").commit();
+                            fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "InstructionFragment").addToBackStack("InstructionFragment").commit();
 
                     }
 
