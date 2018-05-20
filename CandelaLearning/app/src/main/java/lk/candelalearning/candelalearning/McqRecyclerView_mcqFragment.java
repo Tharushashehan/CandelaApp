@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,6 +25,34 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import android.content.Context;
+import android.view.View;
+import android.widget.BaseAdapter;
+import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Gallery;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import static android.R.attr.enabled;
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Gallery;
+import android.widget.ImageView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * Created by tharusha Shehan on 4/7/2018.
@@ -65,7 +94,19 @@ public class McqRecyclerView_mcqFragment extends Fragment{
         fab_select = (FloatingActionButton) myView.findViewById(R.id.fab_select);
         textViewTimer = (TextView)myView.findViewById(R.id.textViewTimer);
         //MainActivity.getTextViewTimer().setVisibility(View.VISIBLE);
-        MainActivity.GetProgressBar().setVisibility(View.VISIBLE);
+        MainActivity.GetProgressBar().setVisibility(View.GONE);
+        final Gallery imgGallery = (Gallery)myView.findViewById(R.id.simpleGallery);
+        Context ContToPass = getActivity();
+        imgGallery.setAdapter(new ImageGalleryAdaptor(ContToPass));
+
+        imgGallery.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                return true;
+            }
+        });
 
         try{
 
@@ -108,8 +149,10 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                     }
 
                     MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
+                    imgGallery.setSelection(QuestionNumber-1);
                     Ativityposition++;
                     QuestionNumber++;
+
 
                     List<McqRecyclerView_Person> McqRecyclerView_Persons_ArrayList = new ArrayList<>();
                     for(int i =0, y=0, j=0; i<StringArray.length; i++){
@@ -211,8 +254,10 @@ public class McqRecyclerView_mcqFragment extends Fragment{
 
 
                             MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
+                            imgGallery.setSelection(QuestionNumber-1);
                             Ativityposition++;
                             QuestionNumber++;
+
                             //answer_list_view.setAdapter(adapter);
                             selected = false;
                         }else{
@@ -319,8 +364,10 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                                     //END
 
                                     MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
+                                    imgGallery.setSelection(QuestionNumber-1);
                                     Ativityposition++;
                                     QuestionNumber++;
+
                                     //answer_list_view.setAdapter(adapter);
                                     selected = false;
                                 }else{
@@ -402,7 +449,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
         answer_recycle_view.addOnItemTouchListener(
                 new RecyclerItemClickListener(myView.getContext(), answer_recycle_view ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        AnsGivenPosition = position+1;
+                        AnsGivenPosition = position;
                         selected = true;
                     }
 

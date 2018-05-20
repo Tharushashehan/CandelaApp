@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,6 +33,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,7 +60,8 @@ public class MainActivity extends AppCompatActivity
     //static TextView textViewTimer;
     View vw;
     Dialog dialog;
-    Button DialogBackButton;
+    //Button DialogBackButton;
+    LinearLayout DialogimageView5LinearLayAbort;
     //Button DialogCancelButton;
 
 
@@ -77,8 +81,10 @@ public class MainActivity extends AppCompatActivity
         dialog = new Dialog(MainActivity.this);
         dialog.setContentView(R.layout.dialog_layout);//popup view is the layout you created
 
-        DialogBackButton = (Button) dialog.findViewById(R.id.button);
+        //DialogBackButton = (Button) dialog.findViewById(R.id.button);
         //DialogCancelButton = (Button) dialog.findViewById(R.id.button2);
+
+        DialogimageView5LinearLayAbort = (LinearLayout) dialog.findViewById(R.id.imageView5LinearLay);
 
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
         //textViewTimer = (TextView)findViewById(R.id.textViewTimer);
@@ -161,7 +167,7 @@ public class MainActivity extends AppCompatActivity
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 
-        DialogBackButton.setOnClickListener(new View.OnClickListener() {
+        DialogimageView5LinearLayAbort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Here we move again to papers
@@ -398,11 +404,9 @@ public class MainActivity extends AppCompatActivity
                     FragmentManager fragmentManager = getFragmentManager();
                     SubjectFragment mySubjectFragment = (SubjectFragment)getFragmentManager().findFragmentByTag("SubjectFragment");
                     PaperYearFragment myPaperYearFragment = (PaperYearFragment)getFragmentManager().findFragmentByTag("PaperYearFragment");
-                    mcqFragment myMcqFragment = (mcqFragment)getFragmentManager().findFragmentByTag("MCQFragment");
+                    McqRecyclerView_mcqFragment myMcqFragment = (McqRecyclerView_mcqFragment)getFragmentManager().findFragmentByTag("MCQFragment");
 
-                    if (mwebView.canGoBack()) {
-                        mwebView.goBack();
-                    }else if (mySubjectFragment != null && mySubjectFragment.isVisible()) {
+                   if (mySubjectFragment != null && mySubjectFragment.isVisible()) {
                         fragmentManager.beginTransaction().replace(R.id.content_frame , mySubjectFragment.SetFragmentData() , "GradeFragment").addToBackStack("GradeFragment").commit();
                         progressBar.setVisibility(View.GONE);
                         //textViewTimer.setVisibility(View.GONE);
@@ -411,9 +415,13 @@ public class MainActivity extends AppCompatActivity
                         progressBar.setVisibility(View.GONE);
                         //textViewTimer.setVisibility(View.GONE);
                     }else if (myMcqFragment != null && myMcqFragment.isVisible()){
-                        dialog.show();
+
                         Window window = dialog.getWindow();
+                        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT); //
+                        dialog.show();
+                    }else if (mwebView.canGoBack()) {
+                    mwebView.goBack();
                     }else{
                         finish();
                     }
