@@ -98,8 +98,8 @@ public class SubjectFragment extends Fragment implements OnBackPressedListener {
                 tv.setText(value2);
                 adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, StringArray);
                 answer_list_view.setAdapter(adapter);
-                MainActivity.getnext_button().setVisibility(View.GONE);
-                MainActivity.GetProgressBar().setProgress(0);
+//                MainActivity.getnext_button().setVisibility(View.GONE);
+//                MainActivity.GetProgressBar().setProgress(0);
                 //MainActivity.getTextViewTimer().setText("Lets Start");
 
             }else{

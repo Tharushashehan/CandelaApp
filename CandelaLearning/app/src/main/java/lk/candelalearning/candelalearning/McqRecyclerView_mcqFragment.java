@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -94,10 +95,12 @@ public class McqRecyclerView_mcqFragment extends Fragment{
         fab_select = (FloatingActionButton) myView.findViewById(R.id.fab_select);
         textViewTimer = (TextView)myView.findViewById(R.id.textViewTimer);
         //MainActivity.getTextViewTimer().setVisibility(View.VISIBLE);
-        MainActivity.GetProgressBar().setVisibility(View.GONE);
+//        MainActivity.GetProgressBar().setVisibility(View.GONE);
         final Gallery imgGallery = (Gallery)myView.findViewById(R.id.simpleGallery);
         Context ContToPass = getActivity();
         imgGallery.setAdapter(new ImageGalleryAdaptor(ContToPass));
+
+        Button getnext_button = (Button)myView.findViewById(R.id.next_button);
 
         imgGallery.setOnTouchListener(new View.OnTouchListener() {
 
@@ -148,7 +151,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                         imageViewQuestion.setImageResource(resID);
                     }
 
-                    MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
+//                    MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
                     imgGallery.setSelection(QuestionNumber-1);
                     Ativityposition++;
                     QuestionNumber++;
@@ -184,7 +187,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
             tv.setText("Click next to start");
         }
 
-        MainActivity.getnext_button().setOnClickListener(new View.OnClickListener() {
+        getnext_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (Ativityposition >= 2 & QuestionNumber <= 10){
@@ -253,7 +256,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                             //END
 
 
-                            MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
+//                            MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
                             imgGallery.setSelection(QuestionNumber-1);
                             Ativityposition++;
                             QuestionNumber++;
@@ -270,7 +273,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
 
                     int index, Subject_Id;
                     String Subject, Phone="001";
-                    MainActivity.getnext_button().setVisibility(View.GONE);
+//                    MainActivity.getnext_button().setVisibility(View.GONE);
                     tv.setText("Your result is " + Integer.toString(Marks) + " out of 10");
                     //answer_list_view.setAdapter(null);
                     myDb = new DataBaseHelper(MainActivity.getAppContext());
@@ -363,7 +366,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                                     answer_recycle_view.setAdapter(Recycleadapter);
                                     //END
 
-                                    MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
+//                                    MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
                                     imgGallery.setSelection(QuestionNumber-1);
                                     Ativityposition++;
                                     QuestionNumber++;
@@ -384,7 +387,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
 
                         int index, Subject_Id;
                         String Subject, Phone="001";
-                        MainActivity.getnext_button().setVisibility(View.GONE);
+//                        MainActivity.getnext_button().setVisibility(View.GONE);
                         tv.setText("Your result is " + Integer.toString(Marks) + " out of 10");
                         //answer_list_view.setAdapter(null);
                         myDb = new DataBaseHelper(MainActivity.getAppContext());
@@ -439,7 +442,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                             FragmentManager fragmentManager = getFragmentManager();
                             fragmentManager.beginTransaction().replace(R.id.content_frame, Frag, "PaperYearFragment").addToBackStack("PaperYearFragment").commit();
                             //END
-                            MainActivity.GetProgressBar().setVisibility(View.GONE);
+//                            MainActivity.GetProgressBar().setVisibility(View.GONE);
                             //MainActivity.getTextViewTimer().setVisibility(View.GONE);
                         }
                     }

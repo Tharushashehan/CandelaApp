@@ -191,7 +191,7 @@ public class InstructionFragment extends Fragment {
                 Frag.setArguments(arguments);
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "MCQFragment").addToBackStack("MCQFragment").commit();
-                MainActivity.getnext_button().setVisibility(View.VISIBLE);
+//                MainActivity.getnext_button().setVisibility(View.VISIBLE);
             }
             });
         return  myView;

@@ -19,7 +19,7 @@ package lk.candelalearning.candelalearning;
 
 public class DataBaseHelper extends SQLiteOpenHelper  {
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME="Student";
    /* public static final String TABLE_NAME="Student_table";
     public static final String COL_1="ID";

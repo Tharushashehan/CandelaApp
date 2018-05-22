@@ -49,14 +49,14 @@ public class MainActivity extends AppCompatActivity
 
     //Here is the next button tat needs to be changed visibility
     //START
-    static Button next_button;
+    //static Button next_button;
     //END
     Integer FirstArrayIndex =0;
     DataBaseHelper myDb;
     //Context context = getActivity();
     static Context context = null;
     FloatingActionButton fab;
-    static ProgressBar progressBar;
+//    static ProgressBar progressBar;
     //static TextView textViewTimer;
     View vw;
     Dialog dialog;
@@ -86,14 +86,14 @@ public class MainActivity extends AppCompatActivity
 
         DialogimageView5LinearLayAbort = (LinearLayout) dialog.findViewById(R.id.imageView5LinearLay);
 
-        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+//        progressBar = (ProgressBar)findViewById(R.id.progressBar);
         //textViewTimer = (TextView)findViewById(R.id.textViewTimer);
         //progressBar.getProgressDrawable().setColorFilter(Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
         //textView2 = (TextView)findViewById(R.id.textView2);
 
         //Here is the next button tat needs to be changed visibility
         //START
-        next_button = (Button) findViewById(R.id.next_button);
+//        next_button = (Button) findViewById(R.id.next_button);
         //END
 
         //Here we add necessary paper data to the system
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.content_frame, Frag, "PaperYearFragment").addToBackStack("PaperYearFragment").commit();
                 //END
-                MainActivity.GetProgressBar().setVisibility(View.GONE);
+//                MainActivity.GetProgressBar().setVisibility(View.GONE);
                 //MainActivity.getTextViewTimer().setVisibility(View.GONE);
                 dialog.hide();
             }
@@ -276,8 +276,8 @@ public class MainActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.content_frame , empFra).commit();
 
             mwebView.loadUrl("file:///android_asset/index.html");
-            next_button.setVisibility(View.GONE);
-            progressBar.setVisibility(View.GONE);
+//            next_button.setVisibility(View.GONE);
+//            progressBar.setVisibility(View.GONE);
             //textViewTimer.setVisibility(View.GONE);
             //textView2.setVisibility(View.GONE);
         } else if (id == R.id.nav_products_layout) {
@@ -285,8 +285,8 @@ public class MainActivity extends AppCompatActivity
             EmptyFragment empFra = new EmptyFragment();
             fragmentManager.beginTransaction().replace(R.id.content_frame , empFra).commit();
             mwebView.loadUrl("file:///android_asset/products.html");
-            next_button.setVisibility(View.GONE);
-            progressBar.setVisibility(View.GONE);
+//            next_button.setVisibility(View.GONE);
+//            progressBar.setVisibility(View.GONE);
             //textViewTimer.setVisibility(View.GONE);
             //textView2.setVisibility(View.GONE);
         } else if (id == R.id.nav_mcq) {
@@ -327,7 +327,7 @@ public class MainActivity extends AppCompatActivity
 
             mwebView.loadUrl("about:blank");
 
-            progressBar.setVisibility(View.GONE);
+//            progressBar.setVisibility(View.GONE);
             //textViewTimer.setVisibility(View.GONE);
             fragmentManager.beginTransaction().replace(R.id.content_frame , GradeFrag, "GradeFragment").commit();
         } else if (id == R.id.nav_papers_layout) {
@@ -335,8 +335,8 @@ public class MainActivity extends AppCompatActivity
             EmptyFragment empFra = new EmptyFragment();
             fragmentManager.beginTransaction().replace(R.id.content_frame , empFra).commit();
             mwebView.loadUrl("file:///android_asset/comingsoon.html");
-            next_button.setVisibility(View.GONE);
-            progressBar.setVisibility(View.GONE);
+//            next_button.setVisibility(View.GONE);
+//            progressBar.setVisibility(View.GONE);
             //textViewTimer.setVisibility(View.GONE);
             //textView2.setVisibility(View.GONE);
         } else if (id == R.id.nav_aboutus_layout) {
@@ -344,8 +344,8 @@ public class MainActivity extends AppCompatActivity
             EmptyFragment empFra = new EmptyFragment();
             fragmentManager.beginTransaction().replace(R.id.content_frame , empFra).commit();
             mwebView.loadUrl("file:///android_asset/aboutus/aboutus.html");
-            next_button.setVisibility(View.GONE);
-            progressBar.setVisibility(View.GONE);
+//            next_button.setVisibility(View.GONE);
+//            progressBar.setVisibility(View.GONE);
             //textViewTimer.setVisibility(View.GONE);
             //textView2.setVisibility(View.GONE);
         } else if (id == R.id.nav_send) {
@@ -353,8 +353,8 @@ public class MainActivity extends AppCompatActivity
             EmptyFragment empFra = new EmptyFragment();
             fragmentManager.beginTransaction().replace(R.id.content_frame , empFra).commit();
             System.exit(0);
-            next_button.setVisibility(View.GONE);
-            progressBar.setVisibility(View.GONE);
+//            next_button.setVisibility(View.GONE);
+//            progressBar.setVisibility(View.GONE);
             //textViewTimer.setVisibility(View.GONE);
             //textView2.setVisibility(View.GONE);
         }
@@ -409,15 +409,15 @@ public class MainActivity extends AppCompatActivity
 
                    if (mySubjectFragment != null && mySubjectFragment.isVisible()) {
                         fragmentManager.beginTransaction().replace(R.id.content_frame , mySubjectFragment.SetFragmentData() , "GradeFragment").addToBackStack("GradeFragment").commit();
-                        progressBar.setVisibility(View.GONE);
+//                        progressBar.setVisibility(View.GONE);
                         //textViewTimer.setVisibility(View.GONE);
                     }else if (myPaperYearFragment != null && myPaperYearFragment.isVisible()) {
                         fragmentManager.beginTransaction().replace(R.id.content_frame , myPaperYearFragment.SetFragmentData() , "SubjectFragment").addToBackStack("SubjectFragment").commit();
-                        progressBar.setVisibility(View.GONE);
+//                        progressBar.setVisibility(View.GONE);
                         //textViewTimer.setVisibility(View.GONE);
                    }else if (myInsFragmnt != null && myInsFragmnt.isVisible()) {
                        fragmentManager.beginTransaction().replace(R.id.content_frame , myPaperYearFragment.SetFragmentData() , "SubjectFragment").addToBackStack("SubjectFragment").commit();
-                       progressBar.setVisibility(View.GONE);
+//                       progressBar.setVisibility(View.GONE);
                     }else if (myMcqFragment != null && myMcqFragment.isVisible()){
                         Window window = dialog.getWindow();
                         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -438,13 +438,13 @@ public class MainActivity extends AppCompatActivity
     public static Context getAppContext() {
         return MainActivity.context;
     }
-    public static ProgressBar GetProgressBar(){
-        return MainActivity.progressBar;
-    }
+//    public static ProgressBar GetProgressBar(){
+//        return MainActivity.progressBar;
+//    }
 //    public static TextView getTextViewTimer(){
 //        return MainActivity.textViewTimer;
 //    }
-    public static Button getnext_button(){
-        return MainActivity.next_button;
-    }
+//    public static Button getnext_button(){
+//        return MainActivity.next_button;
+//    }
 }

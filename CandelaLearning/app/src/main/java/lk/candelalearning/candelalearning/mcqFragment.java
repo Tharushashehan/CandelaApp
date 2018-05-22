@@ -88,7 +88,8 @@ public class mcqFragment extends Fragment{
         answer_list_view = (ListView) myView.findViewById(R.id.answer_list_view);
         fab_select = (FloatingActionButton) myView.findViewById(R.id.fab_select);
         //MainActivity.getTextViewTimer().setVisibility(View.VISIBLE);
-        MainActivity.GetProgressBar().setVisibility(View.VISIBLE);
+//        MainActivity.GetProgressBar().setVisibility(View.VISIBLE);
+
 
         try{
 
@@ -119,7 +120,7 @@ public class mcqFragment extends Fragment{
                     tv.setText("Q: " + QuestionNumber + ") " + value2);
 
                     adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, StringArray);
-                    MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
+//                    MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
                     Ativityposition++;
                     QuestionNumber++;
                     answer_list_view.setAdapter(adapter);
@@ -131,63 +132,63 @@ public class mcqFragment extends Fragment{
             tv.setText("Click next to start");
         }
 
-        MainActivity.getnext_button().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Ativityposition >= 2 & QuestionNumber <= 10){
-                    ShowData SD = new ShowData();
-                    mcqFragment fragment =  SD.SetMCQFragmentData(new DataBaseHelper(MainActivity.getAppContext()), Ativityposition);
-                    try{
-                        int value1=0;
-                        String value2=" ";
-                        String[] StringArray = {};
-
-                        Bundle bundle = fragment.getArguments();
-                        if (bundle != null) {
-
-                            value1 = bundle.getInt("VALUE1", -1);
-                            value2 = bundle.getString("VALUE2", "h");
-                            StringArray = bundle.getStringArray("VALUE3");
-                            LastCorrectness = bundle.getInt("VALUE4", -1);
-                            tv.setText("Q: " + QuestionNumber + ") " + value2);
-
-                            adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, StringArray);
-                            MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
-                            Ativityposition++;
-                            QuestionNumber++;
-                            answer_list_view.setAdapter(adapter);
-                            selected = false;
-                        }else{
-                            tv.setText("Click next to start");
-                        }
-                    }catch (Exception ex){
-                        tv.setText("Click next to start");
-                    }
-                }else if (QuestionNumber > 10){
-
-                    int index, Subject_Id;
-                    String Subject, Phone="001";
-                    MainActivity.getnext_button().setVisibility(View.GONE);
-                    tv.setText("Your result is " + Integer.toString(Marks) + " out of 10");
-                    answer_list_view.setAdapter(null);
-                    myDb = new DataBaseHelper(MainActivity.getAppContext());
-                    Cursor GradeCursor = myDb.getUserPhoneNo();
-
-                    try{
-                        while (GradeCursor.moveToNext()) {
-                            index = GradeCursor.getColumnIndexOrThrow("Phone");
-                            Phone = GradeCursor.getString(index);
-                        }
-                    }finally {
-                        GradeCursor.close();
-                    }
-                    Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "sms:" + Phone ) );
-                    intent.putExtra( "sms_body", "Your result is" + Integer.toString(Marks) + " out of 10" );
-                    startActivity( intent );
-                    SMSViewed = true;
-                }
-            }
-        });
+//        MainActivity.getnext_button().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (Ativityposition >= 2 & QuestionNumber <= 10){
+//                    ShowData SD = new ShowData();
+//                    mcqFragment fragment =  SD.SetMCQFragmentData(new DataBaseHelper(MainActivity.getAppContext()), Ativityposition);
+//                    try{
+//                        int value1=0;
+//                        String value2=" ";
+//                        String[] StringArray = {};
+//
+//                        Bundle bundle = fragment.getArguments();
+//                        if (bundle != null) {
+//
+//                            value1 = bundle.getInt("VALUE1", -1);
+//                            value2 = bundle.getString("VALUE2", "h");
+//                            StringArray = bundle.getStringArray("VALUE3");
+//                            LastCorrectness = bundle.getInt("VALUE4", -1);
+//                            tv.setText("Q: " + QuestionNumber + ") " + value2);
+//
+//                            adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, StringArray);
+//                            MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
+//                            Ativityposition++;
+//                            QuestionNumber++;
+//                            answer_list_view.setAdapter(adapter);
+//                            selected = false;
+//                        }else{
+//                            tv.setText("Click next to start");
+//                        }
+//                    }catch (Exception ex){
+//                        tv.setText("Click next to start");
+//                    }
+//                }else if (QuestionNumber > 10){
+//
+//                    int index, Subject_Id;
+//                    String Subject, Phone="001";
+////                    MainActivity.getnext_button().setVisibility(View.GONE);
+//                    tv.setText("Your result is " + Integer.toString(Marks) + " out of 10");
+//                    answer_list_view.setAdapter(null);
+//                    myDb = new DataBaseHelper(MainActivity.getAppContext());
+//                    Cursor GradeCursor = myDb.getUserPhoneNo();
+//
+//                    try{
+//                        while (GradeCursor.moveToNext()) {
+//                            index = GradeCursor.getColumnIndexOrThrow("Phone");
+//                            Phone = GradeCursor.getString(index);
+//                        }
+//                    }finally {
+//                        GradeCursor.close();
+//                    }
+//                    Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "sms:" + Phone ) );
+//                    intent.putExtra( "sms_body", "Your result is" + Integer.toString(Marks) + " out of 10" );
+//                    startActivity( intent );
+//                    SMSViewed = true;
+//                }
+//            }
+//        });
 
         answer_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -230,7 +231,7 @@ public class mcqFragment extends Fragment{
                                     tv.setText("Q: " + QuestionNumber + ") " + value2);
 
                                     adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, StringArray);
-                                    MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
+//                                    MainActivity.GetProgressBar().setProgress(QuestionNumber*10);
                                     Ativityposition++;
                                     QuestionNumber++;
                                     answer_list_view.setAdapter(adapter);
@@ -249,7 +250,7 @@ public class mcqFragment extends Fragment{
 
                         int index, Subject_Id;
                         String Subject, Phone="001";
-                        MainActivity.getnext_button().setVisibility(View.GONE);
+//                        MainActivity.getnext_button().setVisibility(View.GONE);
                         tv.setText("Your result is " + Integer.toString(Marks) + " out of 10");
                         answer_list_view.setAdapter(null);
                         myDb = new DataBaseHelper(MainActivity.getAppContext());
@@ -304,7 +305,7 @@ public class mcqFragment extends Fragment{
                             FragmentManager fragmentManager = getFragmentManager();
                             fragmentManager.beginTransaction().replace(R.id.content_frame, Frag, "PaperYearFragment").addToBackStack("PaperYearFragment").commit();
                             //END
-                            MainActivity.GetProgressBar().setVisibility(View.GONE);
+//                            MainActivity.GetProgressBar().setVisibility(View.GONE);
                             //MainActivity.getTextViewTimer().setVisibility(View.GONE);
                         }
                     }

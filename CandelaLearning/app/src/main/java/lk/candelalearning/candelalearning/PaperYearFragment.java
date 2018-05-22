@@ -107,8 +107,8 @@ public class PaperYearFragment extends Fragment implements OnBackPressedListener
                 RVAdapter Recycleadapter = new RVAdapter(persons);
                 answer_recycle_view.setAdapter(Recycleadapter);
 
-                MainActivity.getnext_button().setVisibility(View.GONE);
-                MainActivity.GetProgressBar().setProgress(0);
+//                MainActivity.getnext_button().setVisibility(View.GONE);
+//                MainActivity.GetProgressBar().setProgress(0);
                 //TheTimer.cancel();
                 //MainActivity.getTextViewTimer().setText("Lets Start");
 
@@ -122,11 +122,16 @@ public class PaperYearFragment extends Fragment implements OnBackPressedListener
         answer_recycle_view.addOnItemTouchListener(
                 new RecyclerItemClickListener(myView.getContext(), answer_recycle_view ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
+
+                        //Going in to the instruction fragment
+                        //START
                             answer_list_view.setVisibility(View.VISIBLE);
                             answer_recycle_view.setVisibility(View.GONE);
                             InstructionFragment Frag = new InstructionFragment();
                             FragmentManager fragmentManager = getFragmentManager();
                             fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "InstructionFragment").addToBackStack("InstructionFragment").commit();
+                        //END
+
                     }
 
                     @Override public void onLongItemClick(View view, int position) {

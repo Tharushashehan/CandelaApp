@@ -150,7 +150,7 @@ public class AddData {
             myDb.insertAnswer(79, 20, "කතානායකට කියන තවත් නමකි", 1);
             myDb.insertAnswer(80, 20, "වොල්ඩමාන්ලන්තයේ වැසියන්ට කියන නමයි", 1);
 
-        }else if(myDb.numberOfRows("User")<1){
+        //}else if(myDb.numberOfRows("User")<1){
             myDb.insertUser(1, "Default User", "+94712587166");
 
             myDb.insertGrade(1,4);
@@ -171,7 +171,7 @@ public class AddData {
             myDb.insertYear(2,1,1,2017);
             myDb.insertYear(3,1,1,2016);
             myDb.insertYear(4,1,1,2015);
-        }else if (myDb.numberOfRows("Question_Img")<1){
+        //}else if (myDb.numberOfRows("Question_Img")<1){
             //Adding images to the question
             myDb.insertQuestion_Img(1,R.drawable.question_img01,"question_img01",1,1);
             myDb.insertQuestion_Img(2,R.drawable.question_img02,"question_img02",1,2);
