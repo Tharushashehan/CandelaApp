@@ -78,7 +78,7 @@ public class mcqFragment extends Fragment{
     boolean selected = false;
     private List<Person> persons;
     boolean SMSViewed = false;
-
+    int SELECTEDPAPER;
 
     @Nullable
     @Override
@@ -212,7 +212,7 @@ public class mcqFragment extends Fragment{
 
                         if(selected){
                             ShowData SD = new ShowData();
-                            mcqFragment fragment =  SD.SetMCQFragmentData(new DataBaseHelper(MainActivity.getAppContext()), Ativityposition);
+                            mcqFragment fragment =  SD.SetMCQFragmentData(new DataBaseHelper(MainLoadFirstActivity.getAppContext()), Ativityposition, SELECTEDPAPER);
 
                             try{
                                 int value1=0;
@@ -253,7 +253,7 @@ public class mcqFragment extends Fragment{
 //                        MainActivity.getnext_button().setVisibility(View.GONE);
                         tv.setText("Your result is " + Integer.toString(Marks) + " out of 10");
                         answer_list_view.setAdapter(null);
-                        myDb = new DataBaseHelper(MainActivity.getAppContext());
+                        myDb = new DataBaseHelper(MainLoadFirstActivity.getAppContext());
                         Cursor GradeCursor = myDb.getUserPhoneNo();
 
                         try{
@@ -275,7 +275,7 @@ public class mcqFragment extends Fragment{
                             int Year_Id;
                             String Year;
                             Subject = "Please select a paper from of a year";
-                            myDb = new DataBaseHelper(MainActivity.getAppContext());
+                            myDb = new DataBaseHelper(MainLoadFirstActivity.getAppContext());
                             Cursor GradeCursorForPaperYear = myDb.getPaperYear();
                             persons = new ArrayList<>();
 

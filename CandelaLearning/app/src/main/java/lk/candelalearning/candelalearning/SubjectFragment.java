@@ -35,6 +35,7 @@ public class SubjectFragment extends Fragment implements OnBackPressedListener {
         TextView tv ;
         CountDownTimer TheTimer;
         private List<Person> persons;
+        String SELECTEDGRADE;
 
         /**
          * {@inheritDoc}
@@ -50,7 +51,7 @@ public class SubjectFragment extends Fragment implements OnBackPressedListener {
             int VALUE1 = 0;
             int index, Grade_Id;
             String Grade, QuestionData = "These are the Grades, Please Select Relevent Grade";
-            myDb = new DataBaseHelper(MainActivity.getAppContext());
+            myDb = new DataBaseHelper(MainLoadFirstActivity.getAppContext());
             Cursor GradeCursor = myDb.getAllGradeData();
             ArrayList<String> TmpArryLst = new ArrayList<String>();
 
@@ -101,6 +102,7 @@ public class SubjectFragment extends Fragment implements OnBackPressedListener {
 //                MainActivity.getnext_button().setVisibility(View.GONE);
 //                MainActivity.GetProgressBar().setProgress(0);
                 //MainActivity.getTextViewTimer().setText("Lets Start");
+                SELECTEDGRADE =  bundle.getString("SELECTEDGRADE", " Grade 5");
 
             }else{
                 tv.setText("Click next to start");
@@ -116,7 +118,7 @@ public class SubjectFragment extends Fragment implements OnBackPressedListener {
 
                 int index, Year_Id;
                 String Year, Subject = "Please select a paper from of a year";
-                myDb = new DataBaseHelper(MainActivity.getAppContext());
+                myDb = new DataBaseHelper(MainLoadFirstActivity.getAppContext());
                 Cursor GradeCursor = myDb.getPaperYear();
                 persons = new ArrayList<>();
 
@@ -142,6 +144,8 @@ public class SubjectFragment extends Fragment implements OnBackPressedListener {
                 //arguments.putSerializable("VALUE3", (Serializable) persons);
                 Persons pp = new Persons(persons);
                 arguments.putParcelable("VALUE3", pp);
+                arguments.putString("SELECTEDGRADE",SELECTEDGRADE);
+                arguments.putString("SELECTEDSUBJECT",answer_list_view.getItemAtPosition(position).toString());
                 Frag.setArguments(arguments);
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "PaperYearFragment").addToBackStack("PaperYearFragment").commit();

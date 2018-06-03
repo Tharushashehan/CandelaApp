@@ -35,7 +35,9 @@ public class PaperYearFragment extends Fragment implements OnBackPressedListener
         RecyclerView answer_recycle_view;
         RecyclerView.LayoutManager mLayoutManager;
         private List<Person> persons;
-
+        String SELECTEDGRADE, SELECTEDSUBJECT;
+        int SELECTEDPAPER;
+        RVAdapter Recycleadapter;
 
         /**
          * {@inheritDoc}
@@ -49,7 +51,7 @@ public class PaperYearFragment extends Fragment implements OnBackPressedListener
         public Fragment SetFragmentData() {
             int index, Subject_Id = 1;
             String SubjectMassage = "Please select a subject to go", Subject;
-            DataBaseHelper myDb = new DataBaseHelper(MainActivity.getAppContext());
+            DataBaseHelper myDb = new DataBaseHelper(MainLoadFirstActivity.getAppContext());
             Cursor GradeCursor = myDb.getAllGradeSubjectData(5);
             ArrayList<String> TmpArryLst = new ArrayList<String>();
             try{
@@ -104,9 +106,10 @@ public class PaperYearFragment extends Fragment implements OnBackPressedListener
                 //persons = bundle.getParcelable("VALUE3");
                 tv.setText(value2);
                 persons = pp.getPersonData();
-                RVAdapter Recycleadapter = new RVAdapter(persons);
+                Recycleadapter = new RVAdapter(persons);
                 answer_recycle_view.setAdapter(Recycleadapter);
-
+                SELECTEDGRADE =  bundle.getString("SELECTEDGRADE", " Grade 5");
+                SELECTEDSUBJECT =  bundle.getString("SELECTEDSUBJECT", " Science");
 //                MainActivity.getnext_button().setVisibility(View.GONE);
 //                MainActivity.GetProgressBar().setProgress(0);
                 //TheTimer.cancel();
@@ -123,14 +126,142 @@ public class PaperYearFragment extends Fragment implements OnBackPressedListener
                 new RecyclerItemClickListener(myView.getContext(), answer_recycle_view ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
 
+                        SELECTEDPAPER = Recycleadapter.persons.get(position).switch_Paper_status;
                         //Going in to the instruction fragment
                         //START
                             answer_list_view.setVisibility(View.VISIBLE);
                             answer_recycle_view.setVisibility(View.GONE);
                             InstructionFragment Frag = new InstructionFragment();
+
+                            Bundle arguments = new Bundle();
+                            arguments.putString("SELECTEDGRADE", SELECTEDGRADE);
+                            arguments.putString("SELECTEDSUBJECT", SELECTEDSUBJECT);
+                            arguments.putInt("SELECTEDPAPER", SELECTEDPAPER);
+                            Frag.setArguments(arguments);
+
                             FragmentManager fragmentManager = getFragmentManager();
                             fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "InstructionFragment").addToBackStack("InstructionFragment").commit();
                         //END
+
+
+//                        myDb = new DataBaseHelper(MainActivity.getAppContext());
+//                        int VALUE1 = 1;
+//                        int index;
+//                        int Question_Id, Ppr_No, User_Id, Time, Answer_Id, Correct; //RTX_net_accessC0de$
+//                        String QuestionData = " ", Answer;
+//                        Question_Id = 1;
+//
+//                        Cursor QuestionCursor = myDb.getAllQuestionData(1);
+//                        try{
+//                            if(QuestionCursor != null && QuestionCursor.moveToFirst()) {
+//
+//                                index = QuestionCursor.getColumnIndexOrThrow("Question_Id");
+//                                Question_Id = Integer.parseInt(QuestionCursor.getString(index));
+//
+//                                index = QuestionCursor.getColumnIndexOrThrow("Ppr_No");
+//                                Ppr_No = Integer.parseInt(QuestionCursor.getString(index));
+//
+//                                index = QuestionCursor.getColumnIndexOrThrow("User_Id");
+//                                User_Id = Integer.parseInt(QuestionCursor.getString(index));
+//
+//                                index = QuestionCursor.getColumnIndexOrThrow("Time");
+//                                Time = Integer.parseInt(QuestionCursor.getString(index));
+//
+//                                index = QuestionCursor.getColumnIndexOrThrow("Question");
+//                                QuestionData = QuestionCursor.getString(index);
+//                            }
+//                        }finally {
+//                            QuestionCursor.close();
+//                        }
+//
+//                        Cursor AnswerCursor = myDb.getAnswerDataForQuestionId(Question_Id);
+//                        ArrayList<String> TmpArryLst = new ArrayList<String>();
+//                        int CorrectAnswerPositionTemp =0 , CorrectAnswerPosition = 0;
+//                        char  numb = 'a';
+//
+//                        try{
+//                            while (AnswerCursor.moveToNext()) {
+//                                index = AnswerCursor.getColumnIndexOrThrow("Answer_Id");
+//                                Answer_Id = Integer.parseInt(AnswerCursor.getString(index));
+//
+//                                index = AnswerCursor.getColumnIndexOrThrow("Answer");
+//                                Answer = AnswerCursor.getString(index);
+//
+//                                index = AnswerCursor.getColumnIndexOrThrow("Correct");
+//                                Correct = Integer.parseInt(AnswerCursor.getString(index));
+//                                if (Correct == 0){
+//                                    CorrectAnswerPosition = CorrectAnswerPositionTemp;
+//                                }
+//                                CorrectAnswerPositionTemp++;
+////                                    TmpArryLst.add(numb + ") " + Answer);
+//                                TmpArryLst.add(Answer);
+//                                numb++;
+//                            }
+//                        }finally {
+//                            AnswerCursor.close();
+//                        }
+//
+//                        //Get the image details from DB
+//                        //START
+//                        Cursor QuestionimgCursor = myDb.getImgDataForQuestionId(Question_Id, 1);
+//                        String img_Name = " ";
+//                        try{
+//                            while (QuestionimgCursor.moveToNext()) {
+//                                index = QuestionimgCursor.getColumnIndexOrThrow("img_Name");
+//                                img_Name = QuestionimgCursor.getString(index);
+//                            }
+//                        }finally {
+//                            QuestionimgCursor.close();
+//                        }
+//
+//                        Cursor AnswerimgCursor = myDb.getImgDataForAnswerId(Question_Id, 1);
+//                        ArrayList<String> TmpAnswerImgArryLst = new ArrayList<String>();
+//                        ArrayList<Integer> TmpAnswrIdLst = new ArrayList<Integer>();
+//                        String Answr_img_Name = " ";
+//                        int Tmp_Answer_Id = 0;
+//                        try{
+//                            while (AnswerimgCursor.moveToNext()) {
+//                                index = AnswerimgCursor.getColumnIndexOrThrow("img_Name");
+//                                Answr_img_Name = AnswerimgCursor.getString(index);
+//                                TmpAnswerImgArryLst.add(Answr_img_Name);
+//
+//                                index = AnswerimgCursor.getColumnIndexOrThrow("Answer_Id");
+//                                Tmp_Answer_Id =  Integer.parseInt(AnswerimgCursor.getString(index));
+//                                TmpAnswrIdLst.add(Tmp_Answer_Id);
+//                            }
+//                        }finally {
+//                            AnswerimgCursor.close();
+//                        }
+//
+//                        //END
+//
+//                        String[] AnswerArray = new String[TmpArryLst.size()];
+//                        AnswerArray = TmpArryLst.toArray(AnswerArray);
+//
+//                        int[] AnswerIDArry = new int[TmpAnswrIdLst.size()];
+//                        Iterator<Integer> iterator = TmpAnswrIdLst.iterator();
+//                        for (int i = 0; i < AnswerIDArry.length; i++)
+//                        {
+//                            AnswerIDArry[i] = iterator.next().intValue();
+//                        }
+//
+//                        String[] AnswerImgArry = new String[TmpAnswerImgArryLst.size()];
+//                        AnswerImgArry = TmpAnswerImgArryLst.toArray(AnswerImgArry);
+//
+//                        //AnswerImgArry = TmpAnswerImgArryLst.toArray(AnswerImgArry);
+//                        McqRecyclerView_mcqFragment Frag = new McqRecyclerView_mcqFragment();
+//                        Bundle arguments = new Bundle();
+//                        arguments.putInt("VALUE1", VALUE1);
+//                        arguments.putString("VALUE2", QuestionData);
+//                        arguments.putStringArray("VALUE3", AnswerArray);
+//                        arguments.putInt("VALUE4", CorrectAnswerPosition);
+//                        arguments.putString("VALUE5", img_Name);
+//                        arguments.putStringArray("VALUE6", AnswerImgArry);
+//                        arguments.putIntArray("VALUE7", AnswerIDArry);
+//                        Frag.setArguments(arguments);
+//                        FragmentManager fragmentManager = getFragmentManager();
+//                        fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "MCQFragment").addToBackStack("MCQFragment").commit();
+////                MainActivity.getnext_button().setVisibility(View.VISIBLE);
 
                     }
 

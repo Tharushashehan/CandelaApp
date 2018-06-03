@@ -79,7 +79,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
     RecyclerView.LayoutManager mLayoutManager;
     ImageView imageViewQuestion;
     private TextView textViewTimer;
-
+    int SELECTEDPAPER;
 
     @Nullable
     @Override
@@ -140,6 +140,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                     String VALUE5 = bundle.getString("VALUE5");
                     String[] VALUE6 =  bundle.getStringArray("VALUE6");
                     int[] VALUE7 =  bundle.getIntArray("VALUE7");
+                    SELECTEDPAPER = bundle.getInt("SELECTEDPAPER");
                     //tv.setText( QuestionNumber + ") " + value2);
                     tv.setText( value2);
                     //imageViewQuestion.setImageResource(VALUE5);
@@ -147,7 +148,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                     if(VALUE5 ==""){
                         imageViewQuestion.setImageResource(android.R.color.transparent);
                     }else{
-                        int resID = getResources().getIdentifier( VALUE5 , "drawable", MainActivity.getAppContext().getPackageName());
+                        int resID = getResources().getIdentifier( VALUE5 , "drawable", MainLoadFirstActivity.getAppContext().getPackageName());
                         imageViewQuestion.setImageResource(resID);
                     }
 
@@ -192,7 +193,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
             public void onClick(View view) {
                 if (Ativityposition >= 2 & QuestionNumber <= 10){
                     ShowData SD = new ShowData();
-                    McqRecyclerView_mcqFragment fragment =  SD.SetMCQ_RecyclerView_FragmentData_Edit(new DataBaseHelper(MainActivity.getAppContext()), Ativityposition);
+                    McqRecyclerView_mcqFragment fragment =  SD.SetMCQ_RecyclerView_FragmentData_Edit(new DataBaseHelper(MainLoadFirstActivity.getAppContext()), Ativityposition, SELECTEDPAPER);
                     try{
                         int value1=0;
                         String value2=" ";
@@ -225,7 +226,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                             if(VALUE5 ==""){
                                 imageViewQuestion.setImageResource(android.R.color.transparent);
                             }else{
-                                int resID = getResources().getIdentifier( VALUE5 , "drawable", MainActivity.getAppContext().getPackageName());
+                                int resID = getResources().getIdentifier( VALUE5 , "drawable", MainLoadFirstActivity.getAppContext().getPackageName());
                                 imageViewQuestion.setImageResource(resID);
                             }
 
@@ -276,7 +277,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
 //                    MainActivity.getnext_button().setVisibility(View.GONE);
                     tv.setText("Your result is " + Integer.toString(Marks) + " out of 10");
                     //answer_list_view.setAdapter(null);
-                    myDb = new DataBaseHelper(MainActivity.getAppContext());
+                    myDb = new DataBaseHelper(MainLoadFirstActivity.getAppContext());
                     Cursor GradeCursor = myDb.getUserPhoneNo();
 
                     try{
@@ -303,7 +304,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
 
                         if(selected){
                             ShowData SD = new ShowData();
-                            McqRecyclerView_mcqFragment fragment =  SD.SetMCQ_RecyclerView_FragmentData_Edit(new DataBaseHelper(MainActivity.getAppContext()), Ativityposition);
+                            McqRecyclerView_mcqFragment fragment =  SD.SetMCQ_RecyclerView_FragmentData_Edit(new DataBaseHelper(MainLoadFirstActivity.getAppContext()), Ativityposition, SELECTEDPAPER);
 
                             try{
                                 int value1=0;
@@ -339,7 +340,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                                     if(VALUE5 ==""){
                                         imageViewQuestion.setImageResource(android.R.color.transparent);
                                     }else{
-                                        int resID = getResources().getIdentifier( VALUE5 , "drawable", MainActivity.getAppContext().getPackageName());
+                                        int resID = getResources().getIdentifier( VALUE5 , "drawable", MainLoadFirstActivity.getAppContext().getPackageName());
                                         imageViewQuestion.setImageResource(resID);
                                     }
 
@@ -390,7 +391,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
 //                        MainActivity.getnext_button().setVisibility(View.GONE);
                         tv.setText("Your result is " + Integer.toString(Marks) + " out of 10");
                         //answer_list_view.setAdapter(null);
-                        myDb = new DataBaseHelper(MainActivity.getAppContext());
+                        myDb = new DataBaseHelper(MainLoadFirstActivity.getAppContext());
                         Cursor GradeCursor = myDb.getUserPhoneNo();
 
                         try{
@@ -412,7 +413,7 @@ public class McqRecyclerView_mcqFragment extends Fragment{
                             int Year_Id;
                             String Year;
                             Subject = "Please select a paper from of a year";
-                            myDb = new DataBaseHelper(MainActivity.getAppContext());
+                            myDb = new DataBaseHelper(MainLoadFirstActivity.getAppContext());
                             Cursor GradeCursorForPaperYear = myDb.getPaperYear();
                             persons = new ArrayList<>();
 

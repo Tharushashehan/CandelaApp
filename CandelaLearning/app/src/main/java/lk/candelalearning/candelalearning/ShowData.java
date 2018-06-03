@@ -12,7 +12,7 @@ import java.util.Iterator;
 
 public class ShowData {
 
-    mcqFragment SetMCQFragmentData(DataBaseHelper myDb, Integer val){
+    mcqFragment SetMCQFragmentData(DataBaseHelper myDb, Integer val, int SELECTEDPAPER){
 
         //Here we pass question and answer data for each question
         //START
@@ -27,7 +27,7 @@ public class ShowData {
 
         //Here this used to add question list to the string Array
         //START
-        Cursor QuestionCursor = myDb.getAllQuestionData(val);
+        Cursor QuestionCursor = myDb.getAllQuestionData(val, SELECTEDPAPER);
         try{
             if(QuestionCursor != null && QuestionCursor.moveToFirst()) {
              /*   //String id = cursor.getString(cursor.getColumnIndex(Question._ID));
@@ -130,7 +130,7 @@ public class ShowData {
         return fragment;
     }
 
-    McqRecyclerView_mcqFragment SetMCQ_RecyclerView_FragmentData(DataBaseHelper myDb, Integer val){
+    McqRecyclerView_mcqFragment SetMCQ_RecyclerView_FragmentData(DataBaseHelper myDb, Integer val, int SELECTEDPAPER){
 
         //Here we pass question and answer data for each question
         //START
@@ -145,7 +145,7 @@ public class ShowData {
 
         //Here this used to add question list to the string Array
         //START
-        Cursor QuestionCursor = myDb.getAllQuestionData(val);
+        Cursor QuestionCursor = myDb.getAllQuestionData(val, SELECTEDPAPER);
         try{
             if(QuestionCursor != null && QuestionCursor.moveToFirst()) {
              /*   //String id = cursor.getString(cursor.getColumnIndex(Question._ID));
@@ -248,7 +248,7 @@ public class ShowData {
         return fragment;
     }
 
-    McqRecyclerView_mcqFragment SetMCQ_RecyclerView_FragmentData_Edit(DataBaseHelper myDb, Integer val){
+    McqRecyclerView_mcqFragment SetMCQ_RecyclerView_FragmentData_Edit(DataBaseHelper myDb, Integer val, int SELECTEDPAPER){
 
         //Here we pass question and answer data for each question
         //START
@@ -263,7 +263,7 @@ public class ShowData {
 
         //Here this used to add question list to the string Array
         //START
-        Cursor QuestionCursor = myDb.getAllQuestionData(val);
+        Cursor QuestionCursor = myDb.getAllQuestionData(val,SELECTEDPAPER);
         try{
             if(QuestionCursor != null && QuestionCursor.moveToFirst()) {
              /*   //String id = cursor.getString(cursor.getColumnIndex(Question._ID));
@@ -389,7 +389,7 @@ public class ShowData {
         return fragment;
     }
 
-    String[] SetMCQStringArrayData(DataBaseHelper myDb, Integer val){
+    String[] SetMCQStringArrayData(DataBaseHelper myDb, Integer val, int SELECTEDPAPER){
 
         //Here we pass question and answer data for each question
         //START
@@ -404,7 +404,7 @@ public class ShowData {
 
         //Here this used to add question list to the string Array
         //START
-        Cursor QuestionCursor = myDb.getAllQuestionData(val);
+        Cursor QuestionCursor = myDb.getAllQuestionData(val, SELECTEDPAPER);
         try{
             if(QuestionCursor != null && QuestionCursor.moveToFirst()) {
              /*   //String id = cursor.getString(cursor.getColumnIndex(Question._ID));

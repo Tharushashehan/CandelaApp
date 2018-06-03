@@ -63,27 +63,46 @@ public class InstructionFragment extends Fragment {
     View myView;
     FloatingActionButton fab_select;
     DataBaseHelper myDb;
+    String SELECTEDGRADE, SELECTEDSUBJECT;
+    int SELECTEDPAPER;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.fragment_instruction, container, false);
         fab_select = (FloatingActionButton) myView.findViewById(R.id.fab_select);
+        TextView TVOfGradeAndSubject = (TextView) myView.findViewById(R.id.textView2);
+
+        try{
+            Bundle bundle = this.getArguments();
+            if (bundle != null) {
+                SELECTEDGRADE =  bundle.getString("SELECTEDGRADE", " Grade 5");
+                SELECTEDSUBJECT =  bundle.getString("SELECTEDSUBJECT", " Science");
+                SELECTEDPAPER = bundle.getInt("SELECTEDPAPER");
+                TVOfGradeAndSubject.setText("Practice Paper for " + SELECTEDGRADE + " On " + SELECTEDSUBJECT);
+            }else{
+                TVOfGradeAndSubject.setText("Click next to start");
+            }
+        }catch (Exception ex){
+            TVOfGradeAndSubject.setText("Click next to start");
+        }
+
 
         fab_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                myDb = new DataBaseHelper(MainActivity.getAppContext());
+                myDb = new DataBaseHelper(MainLoadFirstActivity.getAppContext());
                 int VALUE1 = 1;
                 int index;
                 int Question_Id, Ppr_No, User_Id, Time, Answer_Id, Correct;
                 String QuestionData = " ", Answer;
                 Question_Id = 1;
 
-                Cursor QuestionCursor = myDb.getAllQuestionData(1);
-                try{
-                    if(QuestionCursor != null && QuestionCursor.moveToFirst()) {
+                Cursor QuestionCursor = myDb.getAllQuestionData(1, SELECTEDPAPER);
+                if(QuestionCursor != null && QuestionCursor.moveToFirst()){
+                try {
+                    if (QuestionCursor != null && QuestionCursor.moveToFirst()) {
 
                         index = QuestionCursor.getColumnIndexOrThrow("Question_Id");
                         Question_Id = Integer.parseInt(QuestionCursor.getString(index));
@@ -100,16 +119,16 @@ public class InstructionFragment extends Fragment {
                         index = QuestionCursor.getColumnIndexOrThrow("Question");
                         QuestionData = QuestionCursor.getString(index);
                     }
-                }finally {
+                } finally {
                     QuestionCursor.close();
                 }
 
                 Cursor AnswerCursor = myDb.getAnswerDataForQuestionId(Question_Id);
                 ArrayList<String> TmpArryLst = new ArrayList<String>();
-                int CorrectAnswerPositionTemp =0 , CorrectAnswerPosition = 0;
-                char  numb = 'a';
+                int CorrectAnswerPositionTemp = 0, CorrectAnswerPosition = 0;
+                char numb = 'a';
 
-                try{
+                try {
                     while (AnswerCursor.moveToNext()) {
                         index = AnswerCursor.getColumnIndexOrThrow("Answer_Id");
                         Answer_Id = Integer.parseInt(AnswerCursor.getString(index));
@@ -119,7 +138,7 @@ public class InstructionFragment extends Fragment {
 
                         index = AnswerCursor.getColumnIndexOrThrow("Correct");
                         Correct = Integer.parseInt(AnswerCursor.getString(index));
-                        if (Correct == 0){
+                        if (Correct == 0) {
                             CorrectAnswerPosition = CorrectAnswerPositionTemp;
                         }
                         CorrectAnswerPositionTemp++;
@@ -127,7 +146,7 @@ public class InstructionFragment extends Fragment {
                         TmpArryLst.add(Answer);
                         numb++;
                     }
-                }finally {
+                } finally {
                     AnswerCursor.close();
                 }
 
@@ -135,12 +154,12 @@ public class InstructionFragment extends Fragment {
                 //START
                 Cursor QuestionimgCursor = myDb.getImgDataForQuestionId(Question_Id, 1);
                 String img_Name = " ";
-                try{
+                try {
                     while (QuestionimgCursor.moveToNext()) {
                         index = QuestionimgCursor.getColumnIndexOrThrow("img_Name");
                         img_Name = QuestionimgCursor.getString(index);
                     }
-                }finally {
+                } finally {
                     QuestionimgCursor.close();
                 }
 
@@ -149,17 +168,17 @@ public class InstructionFragment extends Fragment {
                 ArrayList<Integer> TmpAnswrIdLst = new ArrayList<Integer>();
                 String Answr_img_Name = " ";
                 int Tmp_Answer_Id = 0;
-                try{
+                try {
                     while (AnswerimgCursor.moveToNext()) {
                         index = AnswerimgCursor.getColumnIndexOrThrow("img_Name");
                         Answr_img_Name = AnswerimgCursor.getString(index);
                         TmpAnswerImgArryLst.add(Answr_img_Name);
 
                         index = AnswerimgCursor.getColumnIndexOrThrow("Answer_Id");
-                        Tmp_Answer_Id =  Integer.parseInt(AnswerimgCursor.getString(index));
+                        Tmp_Answer_Id = Integer.parseInt(AnswerimgCursor.getString(index));
                         TmpAnswrIdLst.add(Tmp_Answer_Id);
                     }
-                }finally {
+                } finally {
                     AnswerimgCursor.close();
                 }
 
@@ -170,15 +189,13 @@ public class InstructionFragment extends Fragment {
 
                 int[] AnswerIDArry = new int[TmpAnswrIdLst.size()];
                 Iterator<Integer> iterator = TmpAnswrIdLst.iterator();
-                for (int i = 0; i < AnswerIDArry.length; i++)
-                {
+                for (int i = 0; i < AnswerIDArry.length; i++) {
                     AnswerIDArry[i] = iterator.next().intValue();
                 }
 
                 String[] AnswerImgArry = new String[TmpAnswerImgArryLst.size()];
                 AnswerImgArry = TmpAnswerImgArryLst.toArray(AnswerImgArry);
 
-                //AnswerImgArry = TmpAnswerImgArryLst.toArray(AnswerImgArry);
                 McqRecyclerView_mcqFragment Frag = new McqRecyclerView_mcqFragment();
                 Bundle arguments = new Bundle();
                 arguments.putInt("VALUE1", VALUE1);
@@ -188,10 +205,13 @@ public class InstructionFragment extends Fragment {
                 arguments.putString("VALUE5", img_Name);
                 arguments.putStringArray("VALUE6", AnswerImgArry);
                 arguments.putIntArray("VALUE7", AnswerIDArry);
+                arguments.putInt("SELECTEDPAPER", SELECTEDPAPER);
                 Frag.setArguments(arguments);
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "MCQFragment").addToBackStack("MCQFragment").commit();
-//                MainActivity.getnext_button().setVisibility(View.VISIBLE);
+                fragmentManager.beginTransaction().replace(R.id.content_frame, Frag, "MCQFragment").addToBackStack("MCQFragment").commit();
+            }else {
+                    Toast.makeText(myView.getContext(), "Please Select a valid paper", Toast.LENGTH_LONG).show();
+                }
             }
             });
         return  myView;

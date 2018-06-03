@@ -19,7 +19,7 @@ package lk.candelalearning.candelalearning;
 
 public class DataBaseHelper extends SQLiteOpenHelper  {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME="Student";
    /* public static final String TABLE_NAME="Student_table";
     public static final String COL_1="ID";
@@ -191,11 +191,12 @@ public class DataBaseHelper extends SQLiteOpenHelper  {
     }
 
 
-    public Cursor getAllQuestionData(int id) {
+    public Cursor getAllQuestionData(int id, int Ppr_No) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from Question where Question_Id="+id+"", null );
+        Cursor res =  db.rawQuery( "select * from Question where Question_Id="+id+" And Ppr_No="+Ppr_No+" ", null );
         return res;
     }
+
 
     public Cursor getAnswerDataForQuestionId(int id) {
         SQLiteDatabase db = this.getReadableDatabase();

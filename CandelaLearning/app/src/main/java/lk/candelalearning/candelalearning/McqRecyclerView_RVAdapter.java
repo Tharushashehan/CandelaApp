@@ -74,7 +74,7 @@ public class McqRecyclerView_RVAdapter extends RecyclerView.Adapter<McqRecyclerV
         if(persons.get(i).photoName =="candelalogo"){
             personViewHolder.img.setImageResource(android.R.color.transparent);
         }else{
-            int resID = MainActivity.getAppContext().getResources().getIdentifier( persons.get(i).photoName , "drawable", MainActivity.getAppContext().getPackageName());
+            int resID = MainLoadFirstActivity.getAppContext().getResources().getIdentifier( persons.get(i).photoName , "drawable", MainLoadFirstActivity.getAppContext().getPackageName());
             personViewHolder.img.setImageResource(resID);
         }
 

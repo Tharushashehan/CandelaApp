@@ -1,6 +1,5 @@
 package lk.candelalearning.candelalearning;
 
-import static lk.candelalearning.candelalearning.R.drawable.question_img01;
 
 /**
  * Created by tharu on 4/21/2018.
@@ -10,6 +9,7 @@ public class AddData {
     public void dataEnter(DataBaseHelper myDb){
         if(myDb.numberOfRows("Question")<1){
 
+            //region Description: paper no 1 questions starts here
             //ppr 01 question o1
             myDb.insertQuestion( 1, 1, 1, 2, "ශ්‍රී ලංකාවට නිදහස ලැබුනේ කවදාද?");
             myDb.insertAnswer(1, 1, "1948", 0);
@@ -149,10 +149,86 @@ public class AddData {
             myDb.insertAnswer(78, 20, "හරිපොටෙර් චිත්‍රපටියේ චරිතයකි", 0);
             myDb.insertAnswer(79, 20, "කතානායකට කියන තවත් නමකි", 1);
             myDb.insertAnswer(80, 20, "වොල්ඩමාන්ලන්තයේ වැසියන්ට කියන නමයි", 1);
+            //endregion
 
-        //}else if(myDb.numberOfRows("User")<1){
+            //region Description: the second paper section starts here
+            //ppr 02 question 21
+            myDb.insertQuestion( 21, 2, 1, 2, "The inner planet closes to the Sun is ?");
+            myDb.insertAnswer(81, 21, "Mercury", 1);
+            myDb.insertAnswer(82, 21, "Venus", 0);
+            myDb.insertAnswer(83, 21, "Earth", 1);
+            myDb.insertAnswer(84, 21, "Mars", 1);
+
+            //ppr 02 question 22
+            myDb.insertQuestion( 22, 2, 1, 2, "wagon sitting at the top of a hill is an example of energy, which is stored energy ?");
+            myDb.insertAnswer(85, 22, "potential", 1);
+            myDb.insertAnswer(86, 22, "kinetic", 0);
+            myDb.insertAnswer(87, 22, "magnetic", 1);
+            myDb.insertAnswer(88, 22, "solar", 1);
+
+            //ppr 02 question 23
+            myDb.insertQuestion( 23, 2, 1, 2, "Where does the energy that powers the water cycle come from ?");
+            myDb.insertAnswer(89, 23, "plants", 1);
+            myDb.insertAnswer(90, 23, "animals", 0);
+            myDb.insertAnswer(91, 23, "electrical outlets", 1);
+            myDb.insertAnswer(92, 23, "the sun", 1);
+
+            //ppr 02 question 24
+            myDb.insertQuestion( 24, 2, 1, 2, "Ozone is concentrated in the ?");
+            myDb.insertAnswer(117, 24, "troposphere", 1);
+            myDb.insertAnswer(118, 24, "ionosphere", 0);
+            myDb.insertAnswer(119, 24, "mesosphere", 1);
+            myDb.insertAnswer(120, 24, "stratosphere", 1);
+
+            //ppr 02 question 25
+            myDb.insertQuestion( 25, 2, 1, 2, "Ninety-seven percent of the world's water resources are found in ?");
+            myDb.insertAnswer(93, 25, "fresh water", 1);
+            myDb.insertAnswer(94, 25, "salt water", 0);
+            myDb.insertAnswer(95, 25, "ice caps and glaciers", 1);
+            myDb.insertAnswer(96, 25, "groundwater", 1);
+
+            //ppr 02 question 26
+            myDb.insertQuestion( 26, 2, 1, 2, "Which object is the same class lever as the diagram ?");
+            myDb.insertAnswer(97, 26, "wheel barrow", 1);
+            myDb.insertAnswer(98, 26, "stairs", 0);
+            myDb.insertAnswer(99, 26, "broom", 1);
+            myDb.insertAnswer(100, 26, "scissor", 1);
+
+            //ppr 02 question 27
+            myDb.insertQuestion( 27, 2, 1, 2, "Rain, sleet, hail, and snow are all part of the process in the water cycle. What is the process ?");
+            myDb.insertAnswer(101, 27, "transpiration", 1);
+            myDb.insertAnswer(102, 27, "evaporation", 0);
+            myDb.insertAnswer(103, 27, "precipitation", 1);
+            myDb.insertAnswer(104, 27, "condensation", 1);
+
+            //ppr 02 question 28
+            myDb.insertQuestion( 28, 2, 1, 2, "As water vapor rises in the atmosphere, it cools and changes back to liquid. Tiny drops of liquid form clouds in this process called ?");
+            myDb.insertAnswer(105, 28, "Condensation", 1);
+            myDb.insertAnswer(106, 28, "Precipitation", 0);
+            myDb.insertAnswer(107, 28, "Evaporation", 1);
+            myDb.insertAnswer(108, 28, "Run-off", 1);
+
+            //ppr 02 question 29
+            myDb.insertQuestion( 29, 2, 1, 2, "Water taken from plants on the earth's surface into the air is called which of the following ?");
+            myDb.insertAnswer(109, 29, "evaporation", 1);
+            myDb.insertAnswer(110, 29, "transpiration", 0);
+            myDb.insertAnswer(111, 29, "condensation", 1);
+            myDb.insertAnswer(112, 29, "precipitation", 1);
+
+            //ppr 02 question 30
+            myDb.insertQuestion( 30, 2, 1, 2, "The atmosphere is made primarily of ?");
+            myDb.insertAnswer(113, 30, "carbon dioxide", 1);
+            myDb.insertAnswer(114, 30, "oxygen", 0);
+            myDb.insertAnswer(115, 30, "nitrogen", 1);
+            myDb.insertAnswer(116, 30, "argon", 1);
+
+            //endregion
+
+            //region Description: Adding user profile
             myDb.insertUser(1, "Default User", "+94712587166");
+            //endregion
 
+            //region Description: Adding grades
             myDb.insertGrade(1,4);
             myDb.insertGrade(2,5);
             myDb.insertGrade(3,6);
@@ -161,34 +237,42 @@ public class AddData {
             myDb.insertGrade(6,9);
             myDb.insertGrade(7,10);
             myDb.insertGrade(7,11);
+            //endregion
 
+            //region Description: Adding subjects
             myDb.insertSubject(1,5,"Common Knowledge");
             myDb.insertSubject(2,5,"Sinhala");
             myDb.insertSubject(3,5,"English");
             myDb.insertSubject(4,5,"History");
+            //endregion
 
+            //region Description: Adding paper with year
             myDb.insertYear(1,1,1,2018);
-            myDb.insertYear(2,1,1,2017);
-            myDb.insertYear(3,1,1,2016);
-            myDb.insertYear(4,1,1,2015);
-        //}else if (myDb.numberOfRows("Question_Img")<1){
-            //Adding images to the question
-            myDb.insertQuestion_Img(1,R.drawable.question_img01,"question_img01",1,1);
-            myDb.insertQuestion_Img(2,R.drawable.question_img02,"question_img02",1,2);
-            myDb.insertQuestion_Img(3,R.drawable.question_img03,"question_img03",1,3);
-            myDb.insertQuestion_Img(4,R.drawable.question_img04,"question_img04",1,4);
-            myDb.insertQuestion_Img(5,R.drawable.question_img05,"question_img05",1,5);
-            myDb.insertQuestion_Img(6,R.drawable.question_img06,"question_img06",1,6);
-            myDb.insertQuestion_Img(7,R.drawable.question_img07,"question_img07",1,7);
+            myDb.insertYear(2,1,2,2017);
+            myDb.insertYear(3,1,3,2016);
+            myDb.insertYear(4,1,4,2015);
+            //endregion
 
-            //adding images to the answers
-            myDb.insertAnswer_Img(1,R.drawable.question_img01,"question_img01",1,1,1);
-            myDb.insertAnswer_Img(2,R.drawable.question_img02,"question_img02",1,2,1);
-            myDb.insertAnswer_Img(3,R.drawable.question_img03,"question_img03",1,3,1);
-            myDb.insertAnswer_Img(4,R.drawable.question_img04,"question_img04",1,4,1);
-            myDb.insertAnswer_Img(5,R.drawable.question_img05,"question_img05",1,5,3);
-            myDb.insertAnswer_Img(6,R.drawable.question_img06,"question_img06",1,6,3);
-            myDb.insertAnswer_Img(7,R.drawable.question_img07,"question_img07",1,7,3);
+            //region Description: Adding images to the question
+            myDb.insertQuestion_Img(1,R.drawable.question_img02,"question_img02",1,2);
+            myDb.insertQuestion_Img(2,R.drawable.question_img04,"question_img04",1,4);
+            myDb.insertQuestion_Img(3,R.drawable.question_img08,"question_img08",1,8);
+            myDb.insertQuestion_Img(4,R.drawable.question_img26,"question_img26",2,26);
+//            myDb.insertQuestion_Img(5,R.drawable.question_img05,"question_img05",1,5);
+//            myDb.insertQuestion_Img(6,R.drawable.question_img06,"question_img06",1,6);
+//            myDb.insertQuestion_Img(7,R.drawable.question_img07,"question_img07",1,7);
+            //endregion
+
+            //region Description: adding images to the answers
+            myDb.insertAnswer_Img(1,R.drawable.answer41_question11_img,"answer41_question11_img",1,11,41);
+            myDb.insertAnswer_Img(2,R.drawable.answer42_question11_img,"answer42_question11_img",1,11,42);
+            myDb.insertAnswer_Img(3,R.drawable.answer43_question11_img,"answer43_question11_img",1,11,43);
+            myDb.insertAnswer_Img(4,R.drawable.answer44_question11_img,"answer44_question11_img",1,11,44);
+            myDb.insertAnswer_Img(5,R.drawable.answer97_question26_img,"answer97_question26_img",2,26,97);
+            myDb.insertAnswer_Img(6,R.drawable.answer98_question26_img,"answer98_question26_img",2,26,98);
+            myDb.insertAnswer_Img(7,R.drawable.answer99_question26_img,"answer99_question26_img",2,26,99);
+            myDb.insertAnswer_Img(8,R.drawable.answer100_question26_img,"answer100_question26_img",2,26,100);
+            //endregion
         }
         //END
     }

@@ -65,7 +65,7 @@ public class GradeFragment extends Fragment {
                                         long id) {
                         int index, Subject_Id = 1;
                         String SubjectMassage = "Please select a subject to go", Subject;
-                        DataBaseHelper myDb = new DataBaseHelper(MainActivity.getAppContext());
+                        DataBaseHelper myDb = new DataBaseHelper(MainLoadFirstActivity.getAppContext());
                         Cursor GradeCursor = myDb.getAllGradeSubjectData(5);
                         ArrayList<String> TmpArryLst = new ArrayList<String>();
                         try{
@@ -88,6 +88,7 @@ public class GradeFragment extends Fragment {
                     arguments.putInt("VALUE1", Subject_Id);
                     arguments.putString("VALUE2", SubjectMassage);
                     arguments.putStringArray("VALUE3", SubjectArray);
+                    arguments.putString("SELECTEDGRADE", answer_list_view.getItemAtPosition(position).toString());
                     Frag.setArguments(arguments);
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.content_frame , Frag, "SubjectFragment").addToBackStack("SubjectFragment").commit();

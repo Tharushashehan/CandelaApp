@@ -89,13 +89,13 @@
                 <ImageView
                     android:id="@+id/imageView11"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/inst_img07"
-                    android:layout_alignTop="@+id/textView2"
+                    android:layout_height="94dp"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/textView2"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="52dp"
                     android:layout_toEndOf="@+id/textView2"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="20dp"/>
+                    app:srcCompat="@drawable/inst_img07" />
 
 
             </RelativeLayout>
